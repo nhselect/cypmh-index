@@ -27,7 +27,10 @@
     </header>
     <div class="nhsuk-width-container-fluid">
       <main id="maincontent" class="nhsuk-main-wrapper" role="main">
-        <h1>Children and Young Persons' Mental Health <small>Searchable Index</small></h1>
+        <h1>
+          Children and Young People with Mental Health Needs, Autism or Learning
+          Disability <small>Searchable Index</small>
+        </h1>
         <p class="nhsuk__lead">
           Use the search bar or the drop down boxes below to find specific
           resources.

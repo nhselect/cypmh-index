@@ -69,13 +69,7 @@ export default class Matrix extends Vue {
 
     this.resources = this.resources
       .map((item) => {
-        const objectives = item.mapped_skills.map((i) => i.objective).join(' ')
-        const search = [
-          item.title,
-          item.keywords,
-          item.description,
-          objectives,
-        ].join(' ')
+        const search = [item.title, item.keywords, item.description].join(' ')
         return { ...item, search }
       })
       .sort()

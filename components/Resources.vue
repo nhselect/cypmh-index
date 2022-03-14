@@ -19,31 +19,6 @@
             >
               {{ resource.description | trimDescription }}
             </p>
-            <details
-              v-if="resource.mapped_skills.length > 0"
-              class="nhsuk-details ltlc-objectives nhsuk-body-s"
-            >
-              <summary class="nhsuk-details__summary">
-                <span class="nhsuk-details__summary-text">
-                  This resource is mapped to
-                  {{ resource.mapped_skills.length }} learning objective{{
-                    resource.mapped_skills.length > 1 ? 's' : ''
-                  }}
-                </span>
-              </summary>
-              <div class="nhsuk-details__text">
-                <ul class="nhsuk-list">
-                  <li
-                    v-for="objective in resource.mapped_skills"
-                    :key="objective.id"
-                    class="nhsuk-list ltlc-objective__item"
-                  >
-                    <strong>{{ objective.value }}</strong>
-                    {{ objective.objective }}
-                  </li>
-                </ul>
-              </div>
-            </details>
             <ul class="ltlc-keywords">
               <li
                 v-for="keyword in resource.keywords"
