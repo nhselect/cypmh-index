@@ -1,7 +1,7 @@
 <template>
   <div>
     <a class="nhsuk-skip-link" href="#maincontent">Skip to main content</a>
-    <Header />
+    <NhsHeader />
     <div class="nhsuk-width-container-fluid">
       <main id="maincontent" class="nhsuk-main-wrapper" role="main">
         <h1>
@@ -36,22 +36,22 @@
         </div>
       </main>
     </div>
-    <Footer />
+    <NhsFooter />
   </div>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
 import Matrix from '~/components/Matrix.vue'
-import Footer from '~/components/Footer.vue'
-import Header from '~/components/Header.vue'
+import NhsFooter from '~/components/NhsFooter.vue'
+import NhsHeader from '~/components/NhsHeader.vue'
 
 export default {
   components: {
     Logo,
     Matrix,
-    Footer,
-    Header,
+    NhsFooter,
+    NhsHeader,
   },
   head: {
     script: [
