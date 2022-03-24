@@ -16,25 +16,6 @@
         </strong>
       </p>
     </div>
-    <div class="nhsuk-form-group" label="Staff Group">
-      <label class="nhsuk-label" for="staff">Staff Group</label>
-      <select
-        id="staff"
-        v-model="indexFilter.staff"
-        placeholder="Staff Group"
-        class="nhsuk-select nhsuk-u-width-full"
-      >
-        <option></option>
-        <option
-          v-for="staff in getStaff()"
-          :key="staff"
-          :label="staff"
-          :value="staff"
-        >
-          {{ staff }}
-        </option>
-      </select>
-    </div>
     <div class="nhsuk-form-group" label="Duration">
       <label class="nhsuk-label" for="duration">
         Maximum Duration (minutes)
@@ -86,14 +67,80 @@
       </fieldset>
     </div>
     <div class="nhsuk-form-group">
+      <div class="nhsuk-checkboxes__item">
+        <input
+          v-model="indexFilter.easyRead"
+          class="nhsuk-checkboxes__input"
+          type="checkbox"
+          label="easyRead"
+          value="easyRead"
+          name="easyRead"
+          checked="checked"
+        />
+        <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
+          Only easy read content
+        </label>
+      </div>
+    </div>
+    <div class="nhsuk-form-group">
+      <div class="nhsuk-checkboxes__item">
+        <input
+          v-model="indexFilter.livedExperience"
+          class="nhsuk-checkboxes__input"
+          type="checkbox"
+          label="livedExperience"
+          value="livedExperience"
+          name="livedExperience"
+          checked="checked"
+        />
+        <label
+          class="nhsuk-label nhsuk-checkboxes__label"
+          for="livedExperience"
+        >
+          Only content with lived experience
+        </label>
+      </div>
+    </div>
+    <div class="nhsuk-form-group">
+      <div class="nhsuk-checkboxes__item">
+        <input
+          v-model="indexFilter.certifiable"
+          class="nhsuk-checkboxes__input"
+          type="checkbox"
+          label="certifiable"
+          value="certifiable"
+          name="certifiable"
+          checked="checked"
+        />
+        <label
+          class="nhsuk-label nhsuk-checkboxes__label"
+          for="livedExperience"
+        >
+          Content with certification
+        </label>
+      </div>
+    </div>
+    <div class="nhsuk-form-group">
       <button class="nhsuk-button" @click="clearFilters">Clear Filters</button>
+    </div>
+    <hr />
+    <div v-if="indexFilterUrl.length > 0">
+      <h4>Share your search:</h4>
+      <QrcodeVue :value="indexFilterUrl" size="300" render-as="canvas" />
+      <p>
+        You can share your filtered list by saving this image (right click >
+        save image as) and sharing it with colleagues to scan
+      </p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
+import QrcodeVue from 'qrcode.vue'
 import { IResource, IFilter } from '~/interfaces'
+
+Vue.component('QrcodeVue', QrcodeVue)
 
 @Component
 export default class Picker extends Vue {
@@ -101,12 +148,17 @@ export default class Picker extends Vue {
   results = 0
   status = ''
 
-  indexFilter: IFilter = {
+  // default cleared filter values
+  readonly clearFilter: IFilter = {
     text: '',
     duration: 0,
     formats: this.getFormats(),
-    staff: '',
+    easyRead: false,
+    livedExperience: false,
+    certifiable: false,
   }
+
+  indexFilter: IFilter = JSON.parse(JSON.stringify(this.clearFilter))
 
   searchWeighting = {
     title: 10,
@@ -117,11 +169,29 @@ export default class Picker extends Vue {
 
   durationPresets = [5, 15, 30, 0]
 
+  indexFilterUrl = ''
+
   setDuration(d: number) {
     this.indexFilter.duration = d
   }
 
   mounted() {
+    let urlFilter = this.$route.query.filter || ''
+
+    if (Array.isArray(urlFilter)) {
+      urlFilter = urlFilter[0] || ''
+    }
+    if (urlFilter !== '') {
+      const filter = this.decodeFilter(urlFilter)
+
+      try {
+        const filterObject = JSON.parse(filter) as IFilter
+        this.indexFilter = filterObject
+      } catch (e) {
+        this.clearFilters()
+      }
+    }
+
     this.$root.$on('addKeywordToFilter', (keyword: string) => {
       if (
         !this.indexFilter.text.toLowerCase().includes(keyword.toLowerCase())
@@ -131,16 +201,12 @@ export default class Picker extends Vue {
           .trim()
       }
     })
+
+    this.$emit('changeModel', this.getLinks())
   }
 
   getFormats() {
     return [...new Set(this.resources.map((resource) => resource.format))]
-      .filter((a) => a)
-      .sort()
-  }
-
-  getStaff() {
-    return [...new Set(this.resources.flatMap((resource) => resource.staff))]
       .filter((a) => a)
       .sort()
   }
@@ -185,6 +251,8 @@ export default class Picker extends Vue {
 
         points += partialMatched * this.searchWeighting.description
 
+        points += r.starred ? 1000 : 0
+
         return { ...r, points }
       })
       .filter((resource) => {
@@ -193,12 +261,6 @@ export default class Picker extends Vue {
       .sort((a, b) => b.points - a.points)
 
     let resource = ranked
-
-    if (this.indexFilter.staff !== '') {
-      resource = resource.filter((resource) => {
-        return resource.staff.includes(this.indexFilter.staff)
-      })
-    }
 
     if (this.indexFilter.duration > 0) {
       resource = resource.filter((resource) => {
@@ -212,7 +274,27 @@ export default class Picker extends Vue {
       })
     }
 
+    if (this.indexFilter.easyRead) {
+      resource = resource.filter((resource) => {
+        return resource.easy_read === true
+      })
+    }
+
+    if (this.indexFilter.livedExperience) {
+      resource = resource.filter((resource) => {
+        return resource.lived_experience === true
+      })
+    }
+
+    if (this.indexFilter.certifiable) {
+      resource = resource.filter((resource) => {
+        return resource.certifiable === true
+      })
+    }
+
     this.$emit('changeFilterDescription', this.changeFilterDescription())
+
+    this.setFilterUrl(this.indexFilter)
 
     if (resource && resource.length > 0) {
       this.results = resource.length
@@ -235,12 +317,7 @@ export default class Picker extends Vue {
 
   // clear all filters
   clearFilters() {
-    this.indexFilter = {
-      text: '',
-      duration: 0,
-      formats: this.getFormats(),
-      staff: '',
-    }
+    this.indexFilter = JSON.parse(JSON.stringify(this.clearFilter))
     this.results = 0
   }
 
@@ -255,22 +332,41 @@ export default class Picker extends Vue {
         this.indexFilter.duration.toString() +
         ' minutes'
     }
-    if (this.indexFilter.staff !== '') {
-      desc += ', appropriate for the ' + this.indexFilter.staff + ' staff group'
-    }
 
     return desc
   }
 
-  @Watch('indexFilter.text')
-  onSearchChanged() {
-    this.$emit('clear')
-    this.results = 0
-    this.$emit('changeModel', this.getLinks())
+  // encode the filter object in URL safe base64
+  encodeFilter(filter: IFilter) {
+    const filterString = JSON.stringify(filter)
+    const filterStringEncoded = Buffer.from(filterString).toString('base64')
+    return filterStringEncoded
   }
 
-  @Watch('indexFilter.staff')
-  onStaffChanged() {
+  // decode filter from URL param
+  decodeFilter(filterString: string) {
+    const filterStringDecoded = Buffer.from(filterString, 'base64').toString(
+      'utf-8'
+    )
+    return filterStringDecoded
+  }
+
+  // add filter to the url
+  setFilterUrl(filter: IFilter) {
+    const url = window.location.href.split('?')[0]
+
+    if (JSON.stringify(filter) !== JSON.stringify(this.clearFilter)) {
+      const encodedFilter = this.encodeFilter(filter)
+      history.replaceState({}, '', url + '?filter=' + encodedFilter)
+      this.indexFilterUrl = url + '?filter=' + encodedFilter
+    } else {
+      history.replaceState({}, '', url)
+      this.indexFilterUrl = ''
+    }
+  }
+
+  @Watch('indexFilter.text')
+  onSearchChanged() {
     this.$emit('clear')
     this.results = 0
     this.$emit('changeModel', this.getLinks())
@@ -285,6 +381,27 @@ export default class Picker extends Vue {
 
   @Watch('indexFilter.formats')
   onFormatChanged() {
+    this.$emit('clear')
+    this.results = 0
+    this.$emit('changeModel', this.getLinks())
+  }
+
+  @Watch('indexFilter.easyRead')
+  onEasyReadChanged() {
+    this.$emit('clear')
+    this.results = 0
+    this.$emit('changeModel', this.getLinks())
+  }
+
+  @Watch('indexFilter.livedExperience')
+  onLivedExperienceChanged() {
+    this.$emit('clear')
+    this.results = 0
+    this.$emit('changeModel', this.getLinks())
+  }
+
+  @Watch('indexFilter.certifiable')
+  onCertifiableChanged() {
     this.$emit('clear')
     this.results = 0
     this.$emit('changeModel', this.getLinks())

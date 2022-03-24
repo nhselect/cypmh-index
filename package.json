@@ -29,7 +29,8 @@
     "core-js": "^3.9.1",
     "nhsuk-frontend": "^5.2.1",
     "nuxt": "^2.15.3",
-    "nuxt-property-decorator": "^2.9.1"
+    "nuxt-property-decorator": "^2.9.1",
+    "qrcode.vue": "1.7.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",

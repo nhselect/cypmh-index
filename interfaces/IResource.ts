@@ -8,12 +8,14 @@ export interface IResource {
   content: string
   duration: number
   keywords: string[]
-  domain: string
-  care_level: string
-  staff: string[]
-  mapped_skills: IObjective[]
+  starred: boolean
+  easy_read: boolean
+  lived_experience: boolean
+  certifiable: boolean
+  attribution: string
+  folder: string
   url: string
-  uploadDate: Date
+  upload_date: Date
   slug: string
   search: string
 }

@@ -5,7 +5,10 @@
       :key="resource.id"
       class="nhsuk-grid-column-full nhsuk-card-group__item"
     >
-      <div class="nhsuk-card">
+      <div class="nhsuk-card" :class="{ starred: resource.starred }">
+        <div v-if="resource.starred" class="resource__starred">
+          <FontAwesome icon="star" size="xl" class="resource__starred" />
+        </div>
         <div class="nhsuk-card__content ltlc-card__content">
           <div class="nhsuk-card__content-frame">
             <h3 class="nhsuk-card__heading nhsuk-heading-s">
@@ -19,76 +22,91 @@
             >
               {{ resource.description | trimDescription }}
             </p>
-            <ul class="ltlc-keywords">
-              <li
-                v-for="keyword in resource.keywords"
-                :key="keyword"
-                class="nhsuk-tag nhsuk-tag--blue"
-              >
+            <ul class="ltlc-keywords nhsuk-body-s">
+              <li v-for="keyword in resource.keywords" :key="keyword" class="">
                 <a href="#" @click="addKeywordToFilter(keyword)">
                   {{ keyword }}
                 </a>
-              </li>
-            </ul>
-            <ul class="ltlc-staff">
-              <li
-                v-for="s in resource.staff"
-                :key="s"
-                class="nhsuk-tag nhsuk-tag--green"
-              >
-                {{ s }}
               </li>
             </ul>
           </div>
           <dl class="ltlc-resource-details">
             <div v-if="resource.format != ''" class="ltlc-details__format">
               <dt>Format</dt>
-              <dd>
+              <dd class="nhsuk-tag nhsuk-tag--blue">
                 <FontAwesome
                   v-if="resource.format == 'Video'"
                   icon="video"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Audio'"
                   icon="file-audio"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Infographic'"
                   icon="file-pdf"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Text'"
                   icon="file-alt"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Slides'"
                   icon="file-powerpoint"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Website'"
                   icon="external-link-square-alt"
-                  size="2x"
+                  size="1x"
                 />
                 <FontAwesome
                   v-if="resource.format == 'Interactive'"
                   icon="hand-paper"
-                  size="2x"
+                  size="1x"
                 />
                 {{ resource.format }}
               </dd>
             </div>
             <div v-if="resource.duration > 0" class="ltlc-details__duration">
-              <dt>Duration</dt>
-              <dd>
-                <strong class="nhsuk-u-font-size-32">
-                  {{ resource.duration }}
-                </strong>
-                minutes
+              <dt>Estimated duration</dt>
+              <dd class="nhsuk-tag nhsuk-tag--grey">
+                <FontAwesome icon="clock" />
+                {{ resource.duration }} min
+              </dd>
+            </div>
+            <div
+              v-if="resource.lived_experience > 0"
+              class="ltlc-details__duration nhsuk-body-s"
+            >
+              <dt>Lived Experience</dt>
+              <dd class="nhsuk-tag nhsuk-tag--green">
+                <FontAwesome icon="user-circle" />
+                Lived Experience
+              </dd>
+            </div>
+            <div
+              v-if="resource.easy_read > 0"
+              class="ltlc-details__duration nhsuk-body-s"
+            >
+              <dt>Easy Read</dt>
+              <dd class="nhsuk-tag nhsuk-tag--green">
+                <FontAwesome icon="book-reader" />
+                Easy Read
+              </dd>
+            </div>
+            <div
+              v-if="resource.certifiable > 0"
+              class="ltlc-details__duration nhsuk-body-s"
+            >
+              <dt>Certification</dt>
+              <dd class="nhsuk-tag nhsuk-tag--green">
+                <FontAwesome icon="graduation-cap" />
+                Certification
               </dd>
             </div>
           </dl>
@@ -109,6 +127,11 @@ import {
   faFileAlt,
   faExternalLinkSquareAlt,
   faHandPaper,
+  faStar,
+  faClock,
+  faGraduationCap,
+  faBookReader,
+  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { IResource } from '~/interfaces'
@@ -122,7 +145,12 @@ library.add(
   faFilePowerpoint,
   faFileAlt,
   faExternalLinkSquareAlt,
-  faHandPaper
+  faHandPaper,
+  faStar,
+  faClock,
+  faGraduationCap,
+  faBookReader,
+  faUserCircle
 )
 
 Vue.component('FontAwesome', FontAwesomeIcon)
@@ -166,8 +194,27 @@ h3.nhsuk-heading-s {
   border-bottom: 10px solid $color_nhsuk-pink;
 }
 
+.resource__starred {
+  position: absolute;
+  left: 3px;
+  top: 6px;
+  color: $color_nhsuk-orange;
+}
+
+.nhsuk-card.starred {
+  border: 1px solid $color_nhsuk-orange;
+}
+
 .ltlc-keywords {
-  text-align: right;
+  list-style: none;
+  padding: 0;
+  font-weight: $nhsuk-font-bold;
+
+  li {
+    display: inline-block;
+    margin-right: 12px;
+    margin-bottom: 2px;
+  }
 }
 
 .ltlc-card__content {
@@ -176,7 +223,7 @@ h3.nhsuk-heading-s {
 
   .nhsuk-tag {
     margin-bottom: 0;
-    font-size: 0.75em;
+    // font-size: 0.75em;
   }
 }
 
@@ -187,34 +234,18 @@ h3.nhsuk-heading-s {
 .ltlc-resource-details {
   float: right;
   display: flex;
+  align-items: flex-end;
   flex-direction: column;
   margin-left: 16px;
+  margin-right: -40px;
+  white-space: nowrap;
 
   dt {
     display: none;
   }
 
-  dd {
-    text-align: right;
-    padding: 8px;
-    color: #fff;
-    white-space: nowrap;
-
-    strong {
-      color: #fff;
-    }
-  }
-
   > div {
     margin-bottom: 4px;
-  }
-
-  .ltlc-details__format {
-    background-color: $color_nhsuk-dark-pink;
-  }
-
-  .ltlc-details__duration {
-    background-color: $color_nhsuk-grey-1;
   }
 }
 
