@@ -4,7 +4,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'LTLC CYP Mental Health Searchable Index',
+    title:
+      'LTLC CYP with Mental Health Needs, Autism or Learning Disability Searchable Index',
     htmlAttrs: {
       lang: 'en',
     },
