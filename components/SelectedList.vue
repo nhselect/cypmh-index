@@ -51,17 +51,19 @@
       </ul>
       <div v-if="selected.length > 0" class="selectedList-item__action">
         <button class="nhsuk-button nhsuk-button--primary" @click="shareList()">
-          Share list
+          <FontAwesome icon="share-alt" /> Share list
         </button>
         <button
           v-if="selected.length > 0"
           class="nhsuk-button nhsuk-button--secondary"
           @click="ToggleList()"
         >
+          <FontAwesome v-if="viewList" icon="pencil-alt" />
+          <FontAwesome v-if="!viewList" icon="eye" />
           {{ viewList ? 'Edit' : 'Show' }} list
         </button>
         <button class="nhsuk-button nhsuk-button--delete" @click="clearList()">
-          <FontAwesome icon="trash-alt" />&nbsp; Clear list
+          <FontAwesome icon="trash-alt" /> Clear list
         </button>
       </div>
       <div v-else>
@@ -94,13 +96,16 @@ import {
   faArrowUp,
   faArrowDown,
   faTrashAlt,
+  faEye,
+  faPencilAlt,
+  faShareAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { IResource } from '~/interfaces'
 
 config.autoAddCss = false
 
-library.add(faArrowUp, faArrowDown, faTrashAlt)
+library.add(faArrowUp, faArrowDown, faTrashAlt, faEye, faPencilAlt, faShareAlt)
 
 Vue.component('FontAwesome', FontAwesomeIcon)
 
@@ -189,10 +194,24 @@ export default class SelectedList extends Vue {
     }
 
     &__action {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      align-content: center;
+
       button.nhsuk-button {
         font-size: 0.8em;
         padding: 8px 12px;
         margin-left: 0;
+        margin-bottom: 0 !important;
+        margin-right: 8px;
+      }
+
+      a {
+        color: $color_nhsuk-red;
+        display: block;
+        font-size: 0.8em;
+        font-weight: $nhsuk-font-bold;
       }
     }
   }

@@ -175,7 +175,7 @@ export default class Matrix extends Vue {
     }
   }
 
-  @Watch('share-modal')
+  @Watch('shareModal')
   onShareChanged() {
     this.shareUrl = this.setShareUrl()
   }

@@ -125,16 +125,24 @@
       </div>
       <div class="nhsuk-form-group">
         <button class="nhsuk-button" @click="shareFilter">Share Filter</button>
-        <button class="nhsuk-button" @click="clearFilters">
+        <button
+          class="nhsuk-button nhsuk-button__secondary"
+          @click="clearFilters"
+        >
           Clear Filters
         </button>
       </div>
       <hr />
     </div>
     <div v-else>
-      <p>You are currently viewing a custom list of resources.</p>
+      <p>
+        You are currently viewing a custom curated list of resources, so the
+        filter options are disabled.
+      </p>
       <div class="nhsuk-form-group">
-        <button class="nhsuk-button" @click="hideList">Return to filter</button>
+        <button class="nhsuk-button nhsuk-button__secondary" @click="hideList">
+          Return to filters
+        </button>
       </div>
     </div>
   </div>

@@ -8,7 +8,15 @@
             for yourself:
           </h3>
           <p>
-            <a :href="shareUrl" target="_blank">{{ shareUrl }}</a>
+            <input
+              id="shareUrl"
+              class="nhsuk-input"
+              name="shareable-url"
+              type="text"
+              :value="shareUrl"
+              readonly
+              @click="copyUrl"
+            />
           </p>
           <figure class="nhsuk-image">
             <QrcodeVue
@@ -45,6 +53,20 @@ export default class ShareModal extends Vue {
   closeModal() {
     this.$emit('update:share-modal', false)
   }
+
+  copyToClipboard(text) {
+    const sampleTextarea = document.createElement('textarea')
+    document.body.appendChild(sampleTextarea)
+    sampleTextarea.value = text
+    sampleTextarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(sampleTextarea)
+  }
+
+  copyUrl() {
+    const copyText = this.shareUrl
+    this.copyToClipboard(copyText)
+  }
 }
 </script>
 
@@ -52,6 +74,7 @@ export default class ShareModal extends Vue {
 @import 'node_modules/nhsuk-frontend/packages/components/card/card';
 @import 'node_modules/nhsuk-frontend/packages/components/button/button';
 @import 'node_modules/nhsuk-frontend/packages/components/images/images';
+@import 'node_modules/nhsuk-frontend/packages/components/input/input';
 
 .modal-mask {
   position: fixed;
