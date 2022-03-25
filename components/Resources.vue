@@ -5,7 +5,13 @@
       :key="resource.id"
       class="nhsuk-grid-column-full nhsuk-card-group__item"
     >
-      <div class="nhsuk-card" :class="{ starred: resource.starred }">
+      <div
+        class="nhsuk-card"
+        :class="{
+          starred: resource.starred,
+          selected: selected.includes(resource) && !isList,
+        }"
+      >
         <div v-if="resource.starred" class="resource__starred">
           <FontAwesome icon="star" size="xl" class="resource__starred" />
         </div>
@@ -16,6 +22,15 @@
                 {{ resource.title }}
               </a>
             </h3>
+            <p
+              v-if="resource.attribution"
+              class="nhsuk-body-s ltlc-attribution"
+            >
+              <FontAwesome icon="user-edit" size="1x" />
+              <strong>
+                {{ resource.attribution }}
+              </strong>
+            </p>
             <p
               class="nhsuk-card__description nhsuk-body-s"
               :title="resource.description"
@@ -111,13 +126,33 @@
             </div>
           </dl>
         </div>
+        <div v-if="!isList" class="ltlc__select-item">
+          <div class="nhsuk-form-group">
+            <div class="nhsuk-checkboxes__item">
+              <input
+                v-model="selectedItems"
+                class="nhsuk-checkboxes__input"
+                type="checkbox"
+                :label="resource.id"
+                :value="resource"
+                :name="resource.id"
+              />
+              <label
+                class="nhsuk-label nhsuk-checkboxes__label"
+                :for="resource.id"
+              >
+                Add item to list
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import {
   faVideo,
@@ -132,6 +167,7 @@ import {
   faGraduationCap,
   faBookReader,
   faUserCircle,
+  faUserEdit,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { IResource } from '~/interfaces'
@@ -150,7 +186,8 @@ library.add(
   faClock,
   faGraduationCap,
   faBookReader,
-  faUserCircle
+  faUserCircle,
+  faUserEdit
 )
 
 Vue.component('FontAwesome', FontAwesomeIcon)
@@ -158,9 +195,23 @@ Vue.component('FontAwesome', FontAwesomeIcon)
 @Component
 export default class Resources extends Vue {
   @Prop({ required: true }) readonly links!: IResource[]
+  @Prop({ required: true }) readonly selected!: IResource[]
+  @Prop({ required: true }) readonly isList!: boolean
+
+  selectedItems: IResource[] = []
 
   addKeywordToFilter(keyword: string) {
     this.$root.$emit('addKeywordToFilter', keyword)
+  }
+
+  @Watch('selectedItems')
+  onSelectedItemsChanged() {
+    this.$emit('update:selected', this.selectedItems)
+  }
+
+  @Watch('selected')
+  onSelectedChanged() {
+    this.selectedItems = this.selected
   }
 }
 
@@ -177,6 +228,15 @@ Vue.filter('trimDescription', (desc: string) => {
 @import 'node_modules/nhsuk-frontend/packages/components/card/card';
 @import 'node_modules/nhsuk-frontend/packages/components/tag/tag';
 @import 'node_modules/nhsuk-frontend/packages/components/details/details';
+@import 'node_modules/nhsuk-frontend/packages/components/fieldset/fieldset';
+@import 'node_modules/nhsuk-frontend/packages/components/checkboxes/checkboxes';
+@import 'assets/scss/small-checkboxes';
+
+.ltlc-resources {
+  .nhsuk-grid-column-full {
+    padding-left: 0;
+  }
+}
 
 h3.nhsuk-heading-s {
   margin-bottom: 8px;
@@ -205,6 +265,11 @@ h3.nhsuk-heading-s {
   border: 1px solid $color_nhsuk-orange;
 }
 
+.nhsuk-card.selected {
+  border: 1px solid $color_nhsuk-blue;
+  background-color: lighten($color_nhsuk-blue, 60%);
+}
+
 .ltlc-keywords {
   list-style: none;
   padding: 0;
@@ -220,11 +285,7 @@ h3.nhsuk-heading-s {
 .ltlc-card__content {
   display: flex;
   justify-content: space-between;
-
-  .nhsuk-tag {
-    margin-bottom: 0;
-    // font-size: 0.75em;
-  }
+  padding-bottom: 0 !important;
 }
 
 .nhsuk-card__content-frame {
@@ -259,6 +320,42 @@ h3.nhsuk-heading-s {
   li {
     font-size: 0.8em;
     margin-bottom: 8px;
+  }
+}
+
+.ltlc-attribution {
+  color: $color_nhsuk-grey-2;
+}
+
+.ltlc__select-item {
+  @include nhsuk-responsive-padding(5);
+
+  padding-top: 0 !important;
+  float: right;
+
+  .nhsuk-form-group {
+    margin-bottom: 0;
+
+    .nhsuk-checkboxes__item {
+      padding: 0 40px 0 0;
+
+      .nhsuk-checkboxes__input {
+        left: auto;
+        right: 0;
+      }
+
+      .nhsuk-checkboxes__label {
+        &::before {
+          left: auto;
+          right: 0;
+        }
+
+        &::after {
+          left: auto;
+          right: 10px;
+        }
+      }
+    }
   }
 }
 </style>

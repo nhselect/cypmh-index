@@ -1,5 +1,3 @@
-import { IObjective } from './index'
-
 export interface IResource {
   id: number
   title: string
@@ -18,4 +16,5 @@ export interface IResource {
   upload_date: Date
   slug: string
   search: string
+  selected: boolean
 }

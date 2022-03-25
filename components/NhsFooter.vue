@@ -30,7 +30,7 @@
 import { Vue } from 'nuxt-property-decorator'
 import { ILink } from '~/interfaces'
 
-export default class Footer extends Vue {
+export default class NhsFooter extends Vue {
   links: ILink[] = [
     {
       title: 'Accessibility statement',
