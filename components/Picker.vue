@@ -219,7 +219,7 @@ export default class Picker extends Vue {
     const ranked = this.resources
       .map((r) => {
         let points = 0
-        const textArr = this.indexFilter.text.toLowerCase().split(' ')
+        const textArr = this.indexFilter.text.trim().toLowerCase().split(' ')
 
         const wordsMatched = r.title
           .toLowerCase()
