@@ -1,197 +1,182 @@
 <template>
-  <div id="picker" class="nhsuk-fieldset">
-    <div class="nhsuk-form-group">
-      <label class="nhsuk-label" for="search">What are you looking for?</label>
-      <input
-        id="search"
-        v-model="indexFilter.text"
-        class="nhsuk-input nhsuk-u-width-full"
-        name="Search"
-        type="text"
-        placeholder="e.g. keywords, objectives, topics"
-      />
-      <p v-if="results > 0">
-        <strong class="nhsuk-tag nhsuk-tag--green">
-          <a href="#resources">Found {{ results }} resources</a>
-        </strong>
-      </p>
-    </div>
-    <div class="nhsuk-form-group" label="Duration">
-      <label class="nhsuk-label" for="duration">
-        Maximum Duration (minutes)
-      </label>
-      <input
-        id="duration"
-        v-model="indexFilter.duration"
-        class="nhsuk-input nhsuk-u-width-one-quarter"
-        name="duration"
-        type="number"
-      />
-      <span
-        v-for="d in durationPresets"
-        :key="d"
-        class="nhsuk-tag nhsuk-tag--grey"
-      >
-        <a href="#" @click="setDuration(d)">
-          {{ d > 0 ? d : 'None' }}
-        </a>
-      </span>
-    </div>
-    <div class="nhsuk-form-group" label="Resource Type">
-      <fieldset class="nhsuk-fieldset">
-        <legend class="nhsuk-fieldset__legend">
-          <p class="nhsuk-fieldset__heading">Format</p>
-        </legend>
-        <div
-          class="nhsuk-checkboxes nhsuk-checkboxes--small ltlc-filter__formats"
+  <div>
+    <div v-if="!viewingList" id="picker" class="nhsuk-fieldset">
+      <div class="nhsuk-form-group">
+        <label class="nhsuk-label" for="search">
+          What are you looking for?
+        </label>
+        <input
+          id="search"
+          v-model="indexFilter.text"
+          class="nhsuk-input nhsuk-u-width-full"
+          name="Search"
+          type="text"
+          placeholder="e.g. keywords, objectives, topics"
+        />
+        <p v-if="results > 0">
+          <strong class="nhsuk-tag nhsuk-tag--green">
+            <a href="#resources">Found {{ results }} resources</a>
+          </strong>
+        </p>
+      </div>
+      <div class="nhsuk-form-group" label="Duration">
+        <label class="nhsuk-label" for="duration">
+          Maximum Duration (minutes)
+        </label>
+        <input
+          id="duration"
+          v-model="indexFilter.duration"
+          class="nhsuk-input nhsuk-u-width-one-quarter"
+          name="duration"
+          type="number"
+        />
+        <span
+          v-for="d in durationPresets"
+          :key="d"
+          class="nhsuk-tag nhsuk-tag--grey"
         >
+          <a href="#" @click="setDuration(d)">
+            {{ d > 0 ? d : 'None' }}
+          </a>
+        </span>
+      </div>
+      <div class="nhsuk-form-group" label="Resource Type">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend">
+            <p class="nhsuk-fieldset__heading">Format</p>
+          </legend>
           <div
-            v-for="item in getFormats()"
-            :key="item"
-            class="nhsuk-checkboxes__item"
+            class="nhsuk-checkboxes nhsuk-checkboxes--small ltlc-filter__formats"
           >
-            <input
-              v-model="indexFilter.formats"
-              class="nhsuk-checkboxes__input"
-              type="checkbox"
-              :label="item"
-              :value="item"
-              :name="item"
-              checked="checked"
-            />
-            <label class="nhsuk-label nhsuk-checkboxes__label" :for="item">
-              {{ item }}
-            </label>
+            <div
+              v-for="item in getFormats()"
+              :key="item"
+              class="nhsuk-checkboxes__item"
+            >
+              <input
+                v-model="indexFilter.formats"
+                class="nhsuk-checkboxes__input"
+                type="checkbox"
+                :label="item"
+                :value="item"
+                :name="item"
+                checked="checked"
+              />
+              <label class="nhsuk-label nhsuk-checkboxes__label" :for="item">
+                {{ item }}
+              </label>
+            </div>
           </div>
+        </fieldset>
+      </div>
+      <div class="nhsuk-form-group">
+        <div class="nhsuk-checkboxes__item">
+          <input
+            v-model="indexFilter.easyRead"
+            class="nhsuk-checkboxes__input"
+            type="checkbox"
+            label="easyRead"
+            value="easyRead"
+            name="easyRead"
+            checked="checked"
+          />
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
+            Only easy read content
+          </label>
         </div>
-      </fieldset>
-    </div>
-    <div class="nhsuk-form-group">
-      <div class="nhsuk-checkboxes__item">
-        <input
-          v-model="indexFilter.easyRead"
-          class="nhsuk-checkboxes__input"
-          type="checkbox"
-          label="easyRead"
-          value="easyRead"
-          name="easyRead"
-          checked="checked"
-        />
-        <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
-          Only easy read content
-        </label>
       </div>
-    </div>
-    <div class="nhsuk-form-group">
-      <div class="nhsuk-checkboxes__item">
-        <input
-          v-model="indexFilter.livedExperience"
-          class="nhsuk-checkboxes__input"
-          type="checkbox"
-          label="livedExperience"
-          value="livedExperience"
-          name="livedExperience"
-          checked="checked"
-        />
-        <label
-          class="nhsuk-label nhsuk-checkboxes__label"
-          for="livedExperience"
+      <div class="nhsuk-form-group">
+        <div class="nhsuk-checkboxes__item">
+          <input
+            v-model="indexFilter.livedExperience"
+            class="nhsuk-checkboxes__input"
+            type="checkbox"
+            label="livedExperience"
+            value="livedExperience"
+            name="livedExperience"
+            checked="checked"
+          />
+          <label
+            class="nhsuk-label nhsuk-checkboxes__label"
+            for="livedExperience"
+          >
+            Only content with lived experience
+          </label>
+        </div>
+      </div>
+      <div class="nhsuk-form-group">
+        <div class="nhsuk-checkboxes__item">
+          <input
+            v-model="indexFilter.certifiable"
+            class="nhsuk-checkboxes__input"
+            type="checkbox"
+            label="certifiable"
+            value="certifiable"
+            name="certifiable"
+            checked="checked"
+          />
+          <label
+            class="nhsuk-label nhsuk-checkboxes__label"
+            for="livedExperience"
+          >
+            Content with certification
+          </label>
+        </div>
+      </div>
+      <div class="nhsuk-form-group">
+        <button class="nhsuk-button" @click="shareFilter">Share Filter</button>
+        <button
+          class="nhsuk-button nhsuk-button__secondary"
+          @click="clearFilters"
         >
-          Only content with lived experience
-        </label>
+          Clear Filters
+        </button>
       </div>
+      <hr />
     </div>
-    <div class="nhsuk-form-group">
-      <div class="nhsuk-checkboxes__item">
-        <input
-          v-model="indexFilter.certifiable"
-          class="nhsuk-checkboxes__input"
-          type="checkbox"
-          label="certifiable"
-          value="certifiable"
-          name="certifiable"
-          checked="checked"
-        />
-        <label
-          class="nhsuk-label nhsuk-checkboxes__label"
-          for="livedExperience"
-        >
-          Content with certification
-        </label>
-      </div>
-    </div>
-    <div class="nhsuk-form-group">
-      <button class="nhsuk-button" @click="clearFilters">Clear Filters</button>
-    </div>
-    <hr />
-    <div v-if="indexFilterUrl.length > 0">
-      <h4>Share your search:</h4>
-      <QrcodeVue :value="indexFilterUrl" size="300" render-as="canvas" />
+    <div v-else>
       <p>
-        You can share your filtered list by saving this image (right click >
-        save image as) and sharing it with colleagues to scan
+        You are currently viewing a custom curated list of resources, so the
+        filter options are disabled.
       </p>
+      <div class="nhsuk-form-group">
+        <button class="nhsuk-button nhsuk-button__secondary" @click="hideList">
+          Return to filters
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
-import QrcodeVue from 'qrcode.vue'
 import { IResource, IFilter } from '~/interfaces'
-
-Vue.component('QrcodeVue', QrcodeVue)
 
 @Component
 export default class Picker extends Vue {
   @Prop({ required: true }) readonly resources!: IResource[]
+  @Prop({ required: true }) readonly filter!: IFilter[]
+  @Prop() readonly viewingList!: boolean
   results = 0
   status = ''
 
-  // default cleared filter values
-  readonly clearFilter: IFilter = {
-    text: '',
-    duration: 0,
-    formats: this.getFormats(),
-    easyRead: false,
-    livedExperience: false,
-    certifiable: false,
-  }
-
-  indexFilter: IFilter = JSON.parse(JSON.stringify(this.clearFilter))
+  indexFilter: IFilter = JSON.parse(JSON.stringify(this.filter))
 
   searchWeighting = {
     title: 10,
     keyword: 5,
     description: 1,
     objective: 1,
+    starred: 5,
   }
 
   durationPresets = [5, 15, 30, 0]
-
-  indexFilterUrl = ''
 
   setDuration(d: number) {
     this.indexFilter.duration = d
   }
 
   mounted() {
-    let urlFilter = this.$route.query.filter || ''
-
-    if (Array.isArray(urlFilter)) {
-      urlFilter = urlFilter[0] || ''
-    }
-    if (urlFilter !== '') {
-      const filter = this.decodeFilter(urlFilter)
-
-      try {
-        const filterObject = JSON.parse(filter) as IFilter
-        this.indexFilter = filterObject
-      } catch (e) {
-        this.clearFilters()
-      }
-    }
-
     this.$root.$on('addKeywordToFilter', (keyword: string) => {
       if (
         !this.indexFilter.text.toLowerCase().includes(keyword.toLowerCase())
@@ -205,10 +190,23 @@ export default class Picker extends Vue {
     this.$emit('changeModel', this.getLinks())
   }
 
+  hideList() {
+    this.$emit('update:viewing-list', false)
+  }
+
   getFormats() {
     return [...new Set(this.resources.map((resource) => resource.format))]
       .filter((a) => a)
       .sort()
+  }
+
+  clearFilters() {
+    this.$emit('clearFilters')
+  }
+
+  shareFilter() {
+    this.$emit('update:is-sharing-filter', true)
+    this.$emit('update:share-modal', true)
   }
 
   textToArray(text: string) {
@@ -216,6 +214,8 @@ export default class Picker extends Vue {
   }
 
   getLinks() {
+    this.$emit('update:filter', this.indexFilter)
+
     const ranked = this.resources
       .map((r) => {
         let points = 0
@@ -251,7 +251,7 @@ export default class Picker extends Vue {
 
         points += partialMatched * this.searchWeighting.description
 
-        points += r.starred ? 1000 : 0
+        points += r.starred ? points * this.searchWeighting.starred : 0
 
         return { ...r, points }
       })
@@ -294,8 +294,6 @@ export default class Picker extends Vue {
 
     this.$emit('changeFilterDescription', this.changeFilterDescription())
 
-    this.setFilterUrl(this.indexFilter)
-
     if (resource && resource.length > 0) {
       this.results = resource.length
       return resource
@@ -315,12 +313,6 @@ export default class Picker extends Vue {
     return currentFilter
   }
 
-  // clear all filters
-  clearFilters() {
-    this.indexFilter = JSON.parse(JSON.stringify(this.clearFilter))
-    this.results = 0
-  }
-
   changeFilterDescription() {
     let desc = ''
     if (this.indexFilter.text !== '') {
@@ -334,35 +326,6 @@ export default class Picker extends Vue {
     }
 
     return desc
-  }
-
-  // encode the filter object in URL safe base64
-  encodeFilter(filter: IFilter) {
-    const filterString = JSON.stringify(filter)
-    const filterStringEncoded = Buffer.from(filterString).toString('base64')
-    return filterStringEncoded
-  }
-
-  // decode filter from URL param
-  decodeFilter(filterString: string) {
-    const filterStringDecoded = Buffer.from(filterString, 'base64').toString(
-      'utf-8'
-    )
-    return filterStringDecoded
-  }
-
-  // add filter to the url
-  setFilterUrl(filter: IFilter) {
-    const url = window.location.href.split('?')[0]
-
-    if (JSON.stringify(filter) !== JSON.stringify(this.clearFilter)) {
-      const encodedFilter = this.encodeFilter(filter)
-      history.replaceState({}, '', url + '?filter=' + encodedFilter)
-      this.indexFilterUrl = url + '?filter=' + encodedFilter
-    } else {
-      history.replaceState({}, '', url)
-      this.indexFilterUrl = ''
-    }
   }
 
   @Watch('indexFilter.text')
@@ -405,6 +368,11 @@ export default class Picker extends Vue {
     this.$emit('clear')
     this.results = 0
     this.$emit('changeModel', this.getLinks())
+  }
+
+  @Watch('filter')
+  onFilterUpdated() {
+    this.indexFilter = Object.assign(this.indexFilter, this.filter)
   }
 }
 </script>
