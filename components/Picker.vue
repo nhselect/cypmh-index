@@ -167,6 +167,7 @@ export default class Picker extends Vue {
     keyword: 5,
     description: 1,
     objective: 1,
+    starred: 5,
   }
 
   durationPresets = [5, 15, 30, 0]
@@ -250,7 +251,7 @@ export default class Picker extends Vue {
 
         points += partialMatched * this.searchWeighting.description
 
-        points += r.starred ? 1000 : 0
+        points += r.starred ? points * this.searchWeighting.starred : 0
 
         return { ...r, points }
       })
