@@ -7,6 +7,7 @@
             Share your custom {{ sharingType }} with colleagues, or just save it
             for yourself:
           </h3>
+          <button class="nhsuk-button" ahref="">Close</button>
           <p>
             <input
               id="shareUrl"
@@ -66,6 +67,16 @@ export default class ShareModal extends Vue {
   copyUrl() {
     const copyText = this.shareUrl
     this.copyToClipboard(copyText)
+  }
+
+  get urlEmail() {
+    let string = 'mailto:'
+    string =
+      '?subject=View my custom ' +
+      this.sharingType +
+      ' on the CYPMH programme' +
+      '&body='
+    return string
   }
 }
 </script>
