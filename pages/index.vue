@@ -4,14 +4,22 @@
     <NhsHeader />
     <div class="nhsuk-width-container-fluid">
       <main id="maincontent" class="nhsuk-main-wrapper" role="main">
-        <h1>
-          Children and Young People with Mental Health Needs, Autism or Learning
-          Disability <small>Searchable Index</small>
-        </h1>
-        <p class="nhsuk__lead">
-          Use the search bar or the drop down boxes below to find specific
-          resources.
-        </p>
+        <div class="nhsuk-grid-row">
+          <div class="nhsuk-grid-column-two-thirds">
+            <h1>
+              Children and Young People with Mental Health Needs, Autism or
+              Learning Disability
+              <br /><small>Searchable Index</small>
+            </h1>
+            <p class="nhsuk__lead">
+              Use the search bar or the drop down boxes below to find specific
+              resources.
+            </p>
+          </div>
+          <div class="nhsuk-grid-column-one-third">
+            <Programmes />
+          </div>
+        </div>
         <Matrix />
         <div class="links">
           <h2>Can't find what you are looking for?</h2>
@@ -31,8 +39,7 @@
           </p>
         </div>
         <div>
-          <h2>Learn more about our LTLC programmes</h2>
-          <Logo />
+          <Programmes />
         </div>
       </main>
     </div>
@@ -41,14 +48,14 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Programmes from '~/components/Programmes.vue'
 import Matrix from '~/components/Matrix.vue'
 import NhsFooter from '~/components/NhsFooter.vue'
 import NhsHeader from '~/components/NhsHeader.vue'
 
 export default {
   components: {
-    Logo,
+    Programmes,
     Matrix,
     NhsFooter,
     NhsHeader,

@@ -157,12 +157,10 @@ export default class Matrix extends Vue {
       this.resources = [resources]
     }
 
-    this.resources = this.resources
-      .map((item) => {
-        const search = [item.title, item.keywords, item.description].join(' ')
-        return { ...item, search }
-      })
-      .sort()
+    this.resources = this.resources.map((item) => {
+      const search = [item.title, item.keywords, item.description].join(' ')
+      return { ...item, search }
+    })
 
     this.links = this.resources
   }
@@ -238,5 +236,10 @@ export default class Matrix extends Vue {
 
 .ltlc-picker {
   border-right: 1px solid $color_nhsuk-grey-4;
+
+  @include mq($from: desktop) {
+    position: sticky;
+    top: 20px;
+  }
 }
 </style>

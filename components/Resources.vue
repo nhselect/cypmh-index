@@ -46,6 +46,13 @@
             </ul>
           </div>
           <dl class="ltlc-resource-details">
+            <div v-if="resource.upload_date" class="ltlc-details__dateadded">
+              <dt>Date added</dt>
+              <dd class="nhsuk-tag nhsuk-tag--aqua-green">
+                <FontAwesome icon="calendar-plus" />
+                {{ formatDate(resource.upload_date) }}
+              </dd>
+            </div>
             <div v-if="resource.format != ''" class="ltlc-details__format">
               <dt>Format</dt>
               <dd class="nhsuk-tag nhsuk-tag--blue">
@@ -168,6 +175,7 @@ import {
   faBookReader,
   faUserCircle,
   faUserEdit,
+  faCalendarPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { IResource } from '~/interfaces'
@@ -187,7 +195,8 @@ library.add(
   faGraduationCap,
   faBookReader,
   faUserCircle,
-  faUserEdit
+  faUserEdit,
+  faCalendarPlus
 )
 
 Vue.component('FontAwesome', FontAwesomeIcon)
@@ -202,6 +211,13 @@ export default class Resources extends Vue {
 
   addKeywordToFilter(keyword: string) {
     this.$root.$emit('addKeywordToFilter', keyword)
+  }
+
+  formatDate(dateToFormat: Date) {
+    const formattedDate = new Date(
+      Date.parse(dateToFormat.toString())
+    ).toLocaleDateString()
+    return formattedDate
   }
 
   @Watch('selectedItems')

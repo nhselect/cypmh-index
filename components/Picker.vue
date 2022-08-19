@@ -219,37 +219,46 @@ export default class Picker extends Vue {
     const ranked = this.resources
       .map((r) => {
         let points = 0
-        const textArr = this.indexFilter.text.trim().toLowerCase().split(' ')
 
-        const wordsMatched = r.title
-          .toLowerCase()
-          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
-          .split(' ')
-          .filter((w) => {
-            return textArr.includes(w)
-          }).length
+        if (this.indexFilter.text.trim().length > 0) {
+          const textArr = this.indexFilter.text
+            .trim()
+            .toLowerCase()
+            .split(' ')
+            .filter((w) => w !== '' && w !== ' ')
 
-        points += wordsMatched * this.searchWeighting.title
+          const wordsMatched = r.title
+            .toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+            .split(' ')
+            .filter((w) => {
+              return w !== '' && textArr.includes(w)
+            }).length
 
-        const keywordsMatched = r.keywords
-          .join(' ')
-          .toLowerCase()
-          .split(' ')
-          .filter((w) => {
-            return textArr.includes(w)
-          }).length
+          points += wordsMatched * this.searchWeighting.title
 
-        points += keywordsMatched * this.searchWeighting.keyword
+          const keywordsMatched = r.keywords
+            .join(' ')
+            .toLowerCase()
+            .split(' ')
+            .filter((w) => {
+              return textArr.includes(w)
+            }).length
 
-        const partialMatched = r.search
-          .toLowerCase()
-          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
-          .split(' ')
-          .filter((w) => {
-            return textArr.every((v) => w.includes(v))
-          }).length
+          points += keywordsMatched * this.searchWeighting.keyword
 
-        points += partialMatched * this.searchWeighting.description
+          const partialMatched = r.search
+            .toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+            .split(' ')
+            .filter((w) => {
+              return textArr.every((v) => w.includes(v))
+            }).length
+
+          points += partialMatched * this.searchWeighting.description
+        } else {
+          points += 1
+        }
 
         points += r.starred ? points * this.searchWeighting.starred : 0
 
@@ -258,8 +267,12 @@ export default class Picker extends Vue {
       .filter((resource) => {
         return resource.points > 0
       })
-      .sort((a, b) => b.points - a.points)
-
+      .sort(
+        (a, b) =>
+          b.points - a.points ||
+          Date.parse(b.upload_date.toString()) -
+            Date.parse(a.upload_date.toString())
+      )
     let resource = ranked
 
     if (this.indexFilter.duration > 0) {
