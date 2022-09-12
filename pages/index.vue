@@ -25,7 +25,7 @@
           <h2>Can't find what you are looking for?</h2>
           <p>
             Please email
-            <a href="mailto:LTLC@hee.nhs.uk">LTLC@hee.nhs.uk</a> stating what
+            <a href="mailto:Learningnetwork@nhselect.org.uk">Learningnetwork@nhselect.org.uk</a> stating what
             you need and we will do our best to locate some suitable resources.
           </p>
         </div>
