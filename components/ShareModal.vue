@@ -7,7 +7,6 @@
             Share your custom {{ sharingType }} with colleagues, or just save it
             for yourself:
           </h3>
-          <button class="nhsuk-button" ahref="">Close</button>
           <p>
             <input
               id="shareUrl"

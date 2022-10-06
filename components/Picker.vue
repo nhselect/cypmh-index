@@ -69,7 +69,10 @@
           </div>
         </fieldset>
       </div>
-      <div class="nhsuk-form-group">
+      <div class="nhsuk-form-group nhsuk-checkboxes--small">
+        <legend class="nhsuk-fieldset__legend">
+          <p class="nhsuk-fieldset__heading">Features</p>
+        </legend>
         <div class="nhsuk-checkboxes__item">
           <input
             v-model="indexFilter.easyRead"
@@ -85,7 +88,7 @@
           </label>
         </div>
       </div>
-      <div class="nhsuk-form-group">
+      <div class="nhsuk-form-group nhsuk-checkboxes--small">
         <div class="nhsuk-checkboxes__item">
           <input
             v-model="indexFilter.livedExperience"
@@ -104,7 +107,7 @@
           </label>
         </div>
       </div>
-      <div class="nhsuk-form-group">
+      <div class="nhsuk-form-group nhsuk-checkboxes--small">
         <div class="nhsuk-checkboxes__item">
           <input
             v-model="indexFilter.certifiable"
@@ -410,5 +413,9 @@ export default class Picker extends Vue {
 
 .nhsuk-tag {
   margin-right: 2px;
+}
+
+.nhsuk-fieldset__legend .nhsuk-fieldset__heading {
+  font-weight: 600;
 }
 </style>

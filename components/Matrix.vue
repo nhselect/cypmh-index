@@ -8,6 +8,7 @@
         :selected.sync="selected"
         :view-list.sync="viewingList"
         :share-modal.sync="shareModal"
+        :share-title.sync="shareTitle"
         :is-sharing-filter.sync="isSharingFilter"
         :editing-list.sync="editingList"
       />
@@ -26,9 +27,16 @@
     <div class="nhsuk-grid-column-two-thirds">
       <div id="resources" class="ltlc-resources">
         <div class="">
-          <h2 class="">Resources</h2>
+          <h2 v-if="viewingList" class="nhsuk-heading-xl">
+            <span v-if="shareTitle" class="nhsuk-caption-xl">
+              Shared List
+            </span>
+            {{ shareTitle ? shareTitle : 'Shared List' }}
+          </h2>
+          <h2 v-else>Resources</h2>
           <p v-if="viewingList">
-            Showing a shared list with {{ selected.length }} resources
+            This is a list of <strong>{{ selected.length }}</strong> selected
+            resources.
           </p>
           <p v-else-if="links.length == resources.length">
             Showing <strong>all {{ resources.length }}</strong> resources -
@@ -56,6 +64,7 @@
       v-if="shareModal"
       :key="shareUrl"
       :share-url="shareUrl"
+      :share-title="shareTitle"
       :is-sharing-filter="isSharingFilter"
       :share-modal.sync="shareModal"
     />
@@ -104,12 +113,14 @@ export default class Matrix extends Vue {
   shareModal = false
   isSharingFilter = false
   indexFilterUrl = ''
+  shareTitle = ''
 
   filterDescription: string = ''
 
   mounted() {
     let urlFilter = this.$route.query.filter || ''
     let urlList = this.$route.query.list || ''
+    const urlTitle = this.$route.query.t || ''
 
     if (Array.isArray(urlFilter)) {
       urlFilter = urlFilter[0] || ''
@@ -137,6 +148,11 @@ export default class Matrix extends Vue {
           })
           return resource[0]
         })
+
+        if (urlTitle.length > 0) {
+          const title = this.decodeString(urlTitle.toString())
+          this.shareTitle = title
+        }
 
         this.selected = resources
         this.viewingList = true
@@ -212,7 +228,10 @@ export default class Matrix extends Vue {
         })
         .join('|')
       const encodedListString = this.encodeString(listString)
-      return '?list=' + encodedListString
+      const title = this.shareTitle
+        ? '&t=' + this.encodeString(this.shareTitle.trim())
+        : ''
+      return '?list=' + encodedListString + title
     }
     return ''
   }
@@ -236,10 +255,14 @@ export default class Matrix extends Vue {
 
 .ltlc-picker {
   border-right: 1px solid $color_nhsuk-grey-4;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: $color_nhsuk-grey-5;
+  padding-top: 20px;
 
   @include mq($from: desktop) {
-    position: sticky;
-    top: 20px;
+    padding-top: 20px;
   }
 }
 </style>

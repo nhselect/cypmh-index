@@ -49,22 +49,38 @@
           </span>
         </li>
       </ul>
-      <div v-if="selected.length > 0" class="selectedList-item__action">
-        <button class="nhsuk-button nhsuk-button--primary" @click="shareList()">
-          <FontAwesome icon="share-alt" /> Share list
-        </button>
-        <button
-          v-if="selected.length > 0"
-          class="nhsuk-button nhsuk-button--secondary"
-          @click="ToggleList()"
-        >
-          <FontAwesome v-if="viewList" icon="pencil-alt" />
-          <FontAwesome v-if="!viewList" icon="eye" />
-          {{ viewList ? 'Edit' : 'Show' }} list
-        </button>
-        <button class="nhsuk-button nhsuk-button--delete" @click="clearList()">
-          <FontAwesome icon="trash-alt" /> Clear list
-        </button>
+      <div v-if="selected.length > 0" class="selectedList__actions">
+        <div class="selectedList__name">
+          <input
+            v-model="shareTitle"
+            class="nhsuk-input selectedList__name-input"
+            name="selectedList__name"
+            placeholder="Name your list"
+          />
+        </div>
+        <div class="selectedList__buttons">
+          <button
+            class="nhsuk-button nhsuk-button--primary"
+            @click="shareList()"
+          >
+            <FontAwesome icon="share-alt" /> Share
+          </button>
+          <button
+            v-if="selected.length > 0"
+            class="nhsuk-button nhsuk-button--secondary"
+            @click="ToggleList()"
+          >
+            <FontAwesome v-if="viewList" icon="pencil-alt" />
+            <FontAwesome v-if="!viewList" icon="eye" />
+            {{ viewList ? 'Edit' : 'Preview' }}
+          </button>
+          <button
+            class="nhsuk-button nhsuk-button--delete"
+            @click="clearList()"
+          >
+            <FontAwesome icon="trash-alt" /> Clear
+          </button>
+        </div>
       </div>
       <div v-else>
         <p>
@@ -90,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import {
   faArrowUp,
@@ -114,6 +130,8 @@ export default class SelectedList extends Vue {
   @Prop({ required: true }) readonly selected!: IResource[]
   @Prop({ required: true }) readonly viewList!: boolean
   @Prop({ required: true }) readonly editingList!: boolean
+
+  shareTitle = ''
 
   removeItem(item) {
     this.$emit('update:editing-list', true)
@@ -141,6 +159,11 @@ export default class SelectedList extends Vue {
       const newArray = arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
       this.$emit('update:selected', newArray)
     }
+  }
+
+  @Watch('shareTitle')
+  onEasyReadChanged() {
+    this.$emit('update:share-title', this.shareTitle)
   }
 
   clearList() {
@@ -192,32 +215,36 @@ export default class SelectedList extends Vue {
         margin-bottom: 10px;
       }
     }
+  }
 
-    &__action {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      align-content: center;
+  &__buttons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    align-content: center;
 
-      button.nhsuk-button {
-        font-size: 0.8em;
-        padding: 8px 12px;
-        margin-left: 0;
-        margin-bottom: 0 !important;
-        margin-right: 8px;
-      }
+    button.nhsuk-button {
+      font-size: 0.8em;
+      padding: 8px 12px;
+      margin-left: 0;
+      margin-bottom: 0 !important;
+      margin-right: 8px;
+    }
 
-      a {
-        color: $color_nhsuk-red;
-        display: block;
-        font-size: 0.8em;
-        font-weight: $nhsuk-font-bold;
-      }
+    a {
+      color: $color_nhsuk-red;
+      display: block;
+      font-size: 0.8em;
+      font-weight: $nhsuk-font-bold;
     }
   }
 
   .nhsuk-button--delete {
     background-color: $color_nhsuk-red;
+
+    &:hover {
+      background-color: darken($color_nhsuk-red, 10%);
+    }
   }
 }
 </style>
