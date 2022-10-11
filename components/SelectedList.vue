@@ -115,7 +115,7 @@ export default class SelectedList extends Vue {
   @Prop({ required: true }) readonly viewList!: boolean
   @Prop({ required: true }) readonly editingList!: boolean
 
-  removeItem(item) {
+  removeItem(item: IResource) {
     this.$emit('update:editing-list', true)
     const newList = this.selected.filter((i) => {
       return i !== item
@@ -123,17 +123,17 @@ export default class SelectedList extends Vue {
     this.$emit('update:selected', newList)
   }
 
-  moveUp(item) {
+  moveUp(item: IResource) {
     const i = this.selected.indexOf(item)
     this.moveItem(i, i - 1)
   }
 
-  moveDown(item) {
+  moveDown(item: IResource) {
     const i = this.selected.indexOf(item)
     this.moveItem(i, i + 1)
   }
 
-  moveItem(oldIndex, newIndex) {
+  moveItem(oldIndex: number, newIndex: number) {
     this.$emit('update:editing-list', true)
     const arr = this.selected
 

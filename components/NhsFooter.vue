@@ -27,9 +27,10 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'nuxt-property-decorator'
+import { Vue, Component } from 'nuxt-property-decorator'
 import { ILink } from '~/interfaces'
 
+@Component
 export default class NhsFooter extends Vue {
   links: ILink[] = [
     {
