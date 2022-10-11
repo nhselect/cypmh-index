@@ -25,24 +25,6 @@
   </header>
 </template>
 
-<script lang="ts">
-import { Vue } from 'nuxt-property-decorator'
-import { ILink } from '~/interfaces'
-
-export default class NhsHeader extends Vue {
-  links: ILink[] = [
-    {
-      title: 'Accessibility statement',
-      url: 'https://thelearningcollaborative.co.uk/accessibility',
-    },
-    {
-      title: 'Respiratory Surge in Children programme',
-      url: 'https://www.e-lfh.org.uk/programmes/respiratory_surge_in_children/',
-    },
-  ]
-}
-</script>
-
 <style lang="scss">
 @import 'node_modules/nhsuk-frontend/packages/components/header/header';
 </style>
