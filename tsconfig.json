@@ -37,5 +37,8 @@
     "node_modules",
     ".nuxt",
     "dist"
-  ]
+  ],
+  "vueCompilerOptions": {
+    "target": 2
+  }
 }
