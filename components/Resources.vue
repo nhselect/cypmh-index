@@ -142,11 +142,11 @@
                 type="checkbox"
                 :label="resource.id"
                 :value="resource"
-                :name="resource.id"
+                :name="resource.id.toString()"
               />
               <label
                 class="nhsuk-label nhsuk-checkboxes__label"
-                :for="resource.id"
+                :for="resource.id.toString()"
               >
                 Add item to list
               </label>

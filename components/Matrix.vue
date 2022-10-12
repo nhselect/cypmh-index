@@ -166,7 +166,7 @@ export default class Matrix extends Vue {
   }
 
   async fetch(): Promise<void> {
-    const resources = (await this.$content('resources').fetch()) as any[]
+    const resources = (await this.$content('resources').fetch()) as any
     if (Array.isArray(resources)) {
       this.resources = resources
     } else {
