@@ -170,7 +170,7 @@ export default class Matrix extends Vue {
     if (Array.isArray(resources)) {
       this.resources = resources
     } else {
-      this.resources = [resources]
+      this.resources = resources.items
     }
 
     this.resources = this.resources.map((item) => {

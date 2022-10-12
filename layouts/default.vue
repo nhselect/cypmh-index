@@ -4,22 +4,6 @@
     <NhsHeader />
     <div class="nhsuk-width-container-fluid">
       <main id="maincontent" class="nhsuk-main-wrapper" role="main">
-        <div class="nhsuk-grid-row">
-          <div class="nhsuk-grid-column-two-thirds">
-            <h1>
-              Children and Young People with Mental Health Needs, Autism or
-              Learning Disability
-              <br /><small>Searchable Index</small>
-            </h1>
-            <p class="nhsuk__lead">
-              Use the search bar or the drop down boxes below to find specific
-              resources.
-            </p>
-          </div>
-          <div class="nhsuk-grid-column-one-third">
-            <Programmes />
-          </div>
-        </div>
         <Nuxt />
         <div class="links">
           <h2>Can't find what you are looking for?</h2>

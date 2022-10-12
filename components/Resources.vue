@@ -32,7 +32,7 @@
               </strong>
             </p>
             <p
-              class="nhsuk-card__description nhsuk-body-s"
+              class="nhsuk-card__description nhsuk-body-s nhsuk-u-reading-width"
               :title="resource.description"
             >
               {{ resource.description | trimDescription }}
@@ -102,7 +102,7 @@
               </dd>
             </div>
             <div
-              v-if="resource.lived_experience > 0"
+              v-if="resource.lived_experience"
               class="ltlc-details__duration nhsuk-body-s"
             >
               <dt>Lived Experience</dt>
@@ -112,7 +112,7 @@
               </dd>
             </div>
             <div
-              v-if="resource.easy_read > 0"
+              v-if="resource.easy_read"
               class="ltlc-details__duration nhsuk-body-s"
             >
               <dt>Easy Read</dt>
@@ -122,7 +122,7 @@
               </dd>
             </div>
             <div
-              v-if="resource.certifiable > 0"
+              v-if="resource.certifiable"
               class="ltlc-details__duration nhsuk-body-s"
             >
               <dt>Certification</dt>
