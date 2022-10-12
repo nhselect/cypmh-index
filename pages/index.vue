@@ -11,6 +11,7 @@
           Use the search bar or the drop down boxes below to find specific
           resources.
         </p>
+        <RapidAccessListMenu />
       </div>
       <div class="nhsuk-grid-column-one-third">
         <Programmes />
