@@ -54,7 +54,7 @@ export default class ShareModal extends Vue {
     this.$emit('update:share-modal', false)
   }
 
-  copyToClipboard(text) {
+  copyToClipboard(text: string) {
     const sampleTextarea = document.createElement('textarea')
     document.body.appendChild(sampleTextarea)
     sampleTextarea.value = text

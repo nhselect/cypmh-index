@@ -50,14 +50,6 @@
         </li>
       </ul>
       <div v-if="selected.length > 0" class="selectedList__actions">
-        <div class="selectedList__name">
-          <input
-            v-model="shareTitle"
-            class="nhsuk-input selectedList__name-input"
-            name="selectedList__name"
-            placeholder="Name your list"
-          />
-        </div>
         <div class="selectedList__buttons">
           <button
             class="nhsuk-button nhsuk-button--primary"
@@ -106,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import {
   faArrowUp,
@@ -131,9 +123,7 @@ export default class SelectedList extends Vue {
   @Prop({ required: true }) readonly viewList!: boolean
   @Prop({ required: true }) readonly editingList!: boolean
 
-  shareTitle = ''
-
-  removeItem(item) {
+  removeItem(item: IResource) {
     this.$emit('update:editing-list', true)
     const newList = this.selected.filter((i) => {
       return i !== item
@@ -141,17 +131,17 @@ export default class SelectedList extends Vue {
     this.$emit('update:selected', newList)
   }
 
-  moveUp(item) {
+  moveUp(item: IResource) {
     const i = this.selected.indexOf(item)
     this.moveItem(i, i - 1)
   }
 
-  moveDown(item) {
+  moveDown(item: IResource) {
     const i = this.selected.indexOf(item)
     this.moveItem(i, i + 1)
   }
 
-  moveItem(oldIndex, newIndex) {
+  moveItem(oldIndex: number, newIndex: number) {
     this.$emit('update:editing-list', true)
     const arr = this.selected
 
@@ -159,11 +149,6 @@ export default class SelectedList extends Vue {
       const newArray = arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
       this.$emit('update:selected', newArray)
     }
-  }
-
-  @Watch('shareTitle')
-  onEasyReadChanged() {
-    this.$emit('update:share-title', this.shareTitle)
   }
 
   clearList() {
