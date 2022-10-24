@@ -42,14 +42,6 @@ export default {
     NhsFooter,
     NhsHeader,
   },
-  head: {
-    script: [
-      {
-        src: 'https://kit.fontawesome.com/d321bb2fa5.js',
-        crossOrigin: 'anonymous',
-      },
-    ],
-  },
 }
 </script>
 
