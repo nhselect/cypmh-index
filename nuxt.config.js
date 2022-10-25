@@ -15,6 +15,13 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://cdn.counter.dev/script.js',
+        'data-id': '4207b5f4-18b4-4844-9000-51dbeb9fe9c9',
+        'data-utcoffset': 0,
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
