@@ -1,14 +1,8 @@
 <template>
-  <details class="nhsuk-details elect-rapidaccesslist-menu">
+  <details class="nhsuk-details nhsuk-expander elect-rapidaccesslist-menu">
     <summary class="nhsuk-details__summary">
-      <h2 class="nhsuk-details__summary-text">
+      <h2 class="nhsuk-details__summary-text nhsuk-heading-m nhsuk-u-margin-0">
         Rapid Access Lists <span class="nhsuk-tag nhsuk-tag--pink">New</span>
-        <span class="nhsuk-body-s">
-          <em>
-            Rapidly gets you to an area of interest, learning pathway, or
-            experience-appropriate content
-          </em>
-        </span>
       </h2>
     </summary>
     <div class="nhsuk-details__text nhsuk-contents-list">
@@ -21,6 +15,7 @@
           <NuxtLink :to="'/rapid/' + list.slug">
             {{ list.title }}
           </NuxtLink>
+          <NuxtContent :document="list" />
         </li>
       </ol>
     </div>
@@ -36,7 +31,7 @@ export default {
   },
   async fetch() {
     const lists = await this.$content('rapid-access')
-      .only(['title', 'slug'])
+      .only(['title', 'slug', 'body', 'profile'])
       .fetch()
 
     if (Array.isArray(lists)) {

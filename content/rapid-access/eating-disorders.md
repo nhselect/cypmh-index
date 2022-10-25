@@ -4,9 +4,8 @@ published: true
 createdAt: 2022-10-06T09:15:17.391Z
 updatedAt: 2022-10-06T09:15:17.399Z
 profile: |-
-  I am a **Healthcare professional**
-
-  I want to have a basic understanding of **eating disorders**
+  - I am a **Healthcare professional**
+  - I want to have a basic understanding of **eating disorders**
 primaryResources:
   - 638
   - 75

@@ -68,11 +68,6 @@ html {
   margin: 0;
 }
 
-h1 small {
-  color: $color_nhsuk-pink;
-  font-weight: bold;
-}
-
 .button--green {
   display: inline-block;
   border-radius: 4px;

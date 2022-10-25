@@ -42,24 +42,59 @@
         <h3>Profile:</h3>
         <nuxt-content :document="rapid.profile" />
       </div>
-      <nuxt-content :document="rapid" />
+      <div v-if="rapid.body">
+        <h3>About this list:</h3>
+        <nuxt-content :document="rapid" />
+      </div>
       <hr />
+      <div v-if="rapid.definitions">
+        <h3>What is:</h3>
+        <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
+          <div
+            v-for="def in rapid.definitions"
+            :key="def.title"
+            class="nhsuk-summary-list__row"
+          >
+            <dt class="nhsuk-summary-list__key">
+              <a :href="def.url" target="_blank">{{ def.title }}</a>
+            </dt>
+            <dd class="nhsuk-summary-list__value">
+              {{ def.definition }}
+            </dd>
+          </div>
+        </dl>
+        <hr />
+      </div>
       <h3 class="nhsuk-heading-l">Primary resources:</h3>
-      <p class="nhsuk-tag nhsuk-tag--primary nhsuk-u-font-size-24">
-        {{ duration }} minutes
+      <p class="nhsuk-u-font-size-24">
+        Duration:
+        <span class="nhsuk-tag nhsuk-tag--blue nhsuk-u-font-size-24">
+          {{ readableDuration }}
+        </span>
       </p>
     </div>
-    <Resources :links="items" :is-list="true" :selected="[]" />
-    <div v-if="rapid.additionalResources.length > 0">
+    <Resources
+      :links="items"
+      :is-list="true"
+      :selected="[]"
+      :show-tags="false"
+      class="nhsuk-u-reading-width"
+    />
+    <div v-if="rapid.additionalResources">
       <hr />
       <div
         v-for="(section, index) in rapid.additionalResources"
         :key="section.title"
       >
         <h3>{{ section.title }}</h3>
-        <p class="nhsuk-tag nhsuk-tag--primary nhsuk-u-font-size-24">
-          {{ additionalDurations[index] }} minutes
+
+        <p class="nhsuk-u-font-size-20">
+          Duration:
+          <span class="nhsuk-tag nhsuk-tag--blue nhsuk-u-font-size-20">
+            {{ additionalDurations[index] }}
+          </span>
         </p>
+
         <nuxt-content
           :document="section.description"
           class="nhsuk-u-reading-width"
@@ -68,7 +103,10 @@
           :links="additionalItems[index]"
           :is-list="true"
           :selected="[]"
+          :show-tags="false"
+          class="nhsuk-u-reading-width"
         />
+        <hr />
       </div>
     </div>
   </div>
@@ -78,12 +116,13 @@
 import Resources from '../../components/Resources.vue'
 export default {
   components: { Resources },
-  async asyncData({ params, $content }) {
+  async asyncData({ params, $content, $toReadableTime }) {
     const slug = params.slug || 'testy'
     let items
     const additionalItems = []
     let rapid
     let duration = 0
+    let readableDuration = ''
     const additionalDurations = []
     if (slug !== '') {
       rapid = await $content('rapid-access/' + slug).fetch()
@@ -106,7 +145,9 @@ export default {
               return t + c
             }, 0)
 
-          if (rapid.additionalResources.length > 0) {
+          readableDuration = $toReadableTime(duration)
+
+          if (rapid.additionalResources) {
             for (let i = 0; i < rapid.additionalResources.length; i++) {
               const ids = rapid.additionalResources[i].resources
               const sectionItems = itemSet.items
@@ -115,11 +156,12 @@ export default {
                   return ids.indexOf(a.id) - ids.indexOf(b.id)
                 })
               additionalItems[i] = sectionItems
-              additionalDurations[i] = sectionItems
+              const dur = sectionItems
                 .map((r) => r.duration)
                 .reduce((t, c) => {
                   return t + c
                 }, 0)
+              additionalDurations[i] = $toReadableTime(dur)
             }
           }
         }
@@ -131,6 +173,7 @@ export default {
       additionalItems,
       additionalDurations,
       duration,
+      readableDuration,
     }
   },
 }

@@ -4,9 +4,8 @@ published: true
 createdAt: 2022-10-06T09:15:17.391Z
 updatedAt: 2022-10-06T09:15:17.399Z
 profile: |-
-  I am a **Healthcare professional**
-
-  I would like an overview of common **legal frameworks** that apply to CYP in Emergency Department or Paediatric Care.
+  - I am a **Healthcare professional**
+  - I would like an overview of common **legal frameworks** that apply to CYP in Emergency Department or Paediatric Care.
 primaryResources:
   - 581
   - 620

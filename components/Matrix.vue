@@ -3,6 +3,7 @@
     <div
       v-if="resources.length > 0"
       class="nhsuk-grid-column-one-third ltlc-picker"
+      :class="filterVisible ? 'filter-visible' : ''"
     >
       <SelectedList
         :selected.sync="selected"
@@ -23,6 +24,9 @@
         @clear="links = resources"
         @clearFilters="clearFilters"
       />
+      <button id="filter-toggle" class="nhsuk-button" @click="toggleFilter">
+        {{ filterVisible ? 'Show' : 'Hide' }} filters
+      </button>
     </div>
     <div class="nhsuk-grid-column-two-thirds">
       <div id="resources" class="ltlc-resources">
@@ -95,6 +99,12 @@ export default class Matrix extends Vue {
     easyRead: false,
     livedExperience: false,
     certifiable: false,
+  }
+
+  filterVisible: boolean = false
+
+  toggleFilter() {
+    this.filterVisible = !this.filterVisible
   }
 
   // default cleared filter values
@@ -254,6 +264,8 @@ export default class Matrix extends Vue {
 }
 
 .ltlc-picker {
+  max-height: 100vh;
+  overflow-y: auto;
   border-right: 1px solid $color_nhsuk-grey-4;
   position: sticky;
   top: 0;
@@ -263,6 +275,19 @@ export default class Matrix extends Vue {
 
   @include mq($from: desktop) {
     padding-top: 20px;
+  }
+
+  @include mq($from: tablet) {
+    > button {
+      display: none;
+    }
+  }
+
+  &.filter-visible {
+    > details,
+    > div {
+      display: none;
+    }
   }
 }
 </style>
