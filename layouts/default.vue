@@ -25,8 +25,11 @@
           <h2>Can't find what you are looking for?</h2>
           <p>
             Please email
-            <a href="mailto:learningnetwork@nhselect.org.uk">learningnetwork@nhselect.org.uk</a> stating what
-            you need and we will do our best to locate some suitable resources.
+            <a href="mailto:learningnetwork@nhselect.org.uk"
+              >learningnetwork@nhselect.org.uk</a
+            >
+            stating what you need and we will do our best to locate some
+            suitable resources.
           </p>
         </div>
         <div>
