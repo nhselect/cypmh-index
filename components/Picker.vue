@@ -60,7 +60,6 @@
                 :label="item"
                 :value="item"
                 :name="item"
-                checked="checked"
               />
               <label class="nhsuk-label nhsuk-checkboxes__label" :for="item">
                 {{ item }}
@@ -81,7 +80,6 @@
             label="easyRead"
             value="easyRead"
             name="easyRead"
-            checked="checked"
           />
           <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
             Only easy read content
@@ -97,7 +95,6 @@
             label="livedExperience"
             value="livedExperience"
             name="livedExperience"
-            checked="checked"
           />
           <label
             class="nhsuk-label nhsuk-checkboxes__label"
@@ -116,7 +113,6 @@
             label="certifiable"
             value="certifiable"
             name="certifiable"
-            checked="checked"
           />
           <label
             class="nhsuk-label nhsuk-checkboxes__label"
