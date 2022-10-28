@@ -84,7 +84,7 @@
             checked="checked"
           />
           <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
-            Only easy read content
+            Easy read content
           </label>
         </div>
       </div>
@@ -103,7 +103,7 @@
             class="nhsuk-label nhsuk-checkboxes__label"
             for="livedExperience"
           >
-            Only content with lived experience
+            Content with lived experience
           </label>
         </div>
       </div>
