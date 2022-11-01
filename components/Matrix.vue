@@ -262,7 +262,7 @@ export default class Matrix extends Vue {
 
   @include mq($from: desktop) {
     padding-top: 20px;
-    position: sticky;
+    // position: sticky;
   }
 }
 </style>
