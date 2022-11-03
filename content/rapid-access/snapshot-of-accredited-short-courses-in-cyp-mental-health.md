@@ -5,7 +5,7 @@ createdAt: 2022-10-25T13:44:14.292Z
 updatedAt: 2022-10-25T13:44:14.302Z
 profile: |-
   - I am a **Healthcare professional**
-  - I am looking to enhance my knowledge and CPD in CYP mental health by **completing an e-learning package that will give me a certificate**
+  - I am looking to enhance my knowledge and CPD in CYP mental health by **completing an elearning package that will give me a certificate**
 primaryResources:
   - 581
   - 162
@@ -29,4 +29,4 @@ definitions:
       on children and young people’s mental health, wellbeing and development to
       any adult working with children, young people and families
 ---
-This list provides access to a selection of evidence-based materials via e learning for healthcare and self-assessment and quiz formats. The collated resources within the list will allow the user to test broad and fundamental knowledge and skills in the understanding of CYP mental Health, Learning Disability or Autism.
+This list provides access to a selection of evidence-based materials via elearning for healthcare with self-assessment and quiz formats. The collated resources within the list will allow the user to test broad and fundamental knowledge and skills in the understanding of CYP mental health, learning disability or autism.

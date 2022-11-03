@@ -7,17 +7,17 @@ profile: |-
   - I am a **Healthcare professional**
   - I would like to increase my knowledge and support of **CYP suffering with common mental health presentations in paediatric and ED departments**
 primaryResources:
-  - 9
-  - 10
+  - 559
+  - 555
   - 420
   - 233
   - 429
   - 234
   - 589
-  - 27
   - 235
-  - 555
-  - 559
+  - 9
+  - 10
+  - 27
   - 77
 additionalResources:
   - title: Further resources
@@ -28,4 +28,4 @@ additionalResources:
       - 256
       - 639
 ---
-This list provides access to a brief and broad understanding of the range of Mental Health difficulties that CYP present with. It contains information about past experiences, how these disorders manifest and present, along with hints and tips on communication and management and involvement of other agencies and services to support the CYP, parents and/or carers
+This list provides access to a brief and broad understanding of the range of mental health difficulties that CYP present with. It contains information about past experiences, how these disorders manifest and present, along with hints and tips on communication and management and involvement of other agencies and services to support the CYP, parents or carers

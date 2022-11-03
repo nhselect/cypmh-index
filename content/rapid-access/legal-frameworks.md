@@ -7,7 +7,7 @@ profile: |-
   - I am a **Healthcare professional**
   - I would like an overview of common **legal frameworks** that apply to CYP in Emergency Department or Paediatric Care.
 primaryResources:
-  - 581
+  - 123
   - 620
   - 283
   - 284
@@ -16,7 +16,8 @@ primaryResources:
   - 464
 additionalResources:
   - title: CYP and Family Resources
-    description: These are some resources that are great to share with the young person and / or their family. Healthcare professional will find them useful as they give an insight into the understanding required by the CYP and family and they may also help address questions that might be posed to the healthcare professional.
+    description: These are some resources that are great to share with the young
+      person or their family. Healthcare professionals will find them useful as they give an insight into the understanding required by the CYP and family and they may also help address questions that might be posed to the healthcare professional.
     resources:
       - 281
       - 282

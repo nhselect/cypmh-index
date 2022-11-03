@@ -11,8 +11,8 @@ primaryResources:
   - 75
 additionalResources:
   - title: Carer or Parent Resources
-    description: These are some resources that are great to share with the Young
-      person and / or their family. Healthcare professional may also find them
+    description: These are some resources that are great to share with the young
+      person or their family. Healthcare professionals may also find them
       useful as they give an insight into the understanding required by the CYP
       and family, and they may help address questions  posed to the healthcare
       professional.
