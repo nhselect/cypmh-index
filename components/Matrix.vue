@@ -267,7 +267,6 @@ export default class Matrix extends Vue {
   max-height: 100vh;
   overflow-y: auto;
   border-right: 1px solid $color_nhsuk-grey-4;
-  position: sticky;
   top: 0;
   z-index: 999;
   background-color: $color_nhsuk-grey-5;
@@ -275,6 +274,7 @@ export default class Matrix extends Vue {
 
   @include mq($from: desktop) {
     padding-top: 20px;
+    // position: sticky;
   }
 
   @include mq($from: tablet) {
