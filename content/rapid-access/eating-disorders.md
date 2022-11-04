@@ -9,6 +9,8 @@ profile: |-
 primaryResources:
   - 638
   - 75
+  - 664
+  - 663
 additionalResources:
   - title: Carer or Parent Resources
     description: These are some resources that are great to share with the young
