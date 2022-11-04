@@ -15,13 +15,24 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://cdn.counter.dev/script.js',
+        'data-id': '4207b5f4-18b4-4844-9000-51dbeb9fe9c9',
+        'data-utcoffset': 0,
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/to-readable-time.js'],
+
+  plugins: [
+    { src: '~/plugins/to-readable-time.js' },
+    { src: '~/plugins/pwa-update.js', mode: 'client' }
+   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
