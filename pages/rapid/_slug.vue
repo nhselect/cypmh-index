@@ -47,24 +47,6 @@
         <nuxt-content :document="rapid" />
       </div>
       <hr />
-      <div v-if="rapid.definitions">
-        <h3>What is:</h3>
-        <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
-          <div
-            v-for="def in rapid.definitions"
-            :key="def.title"
-            class="nhsuk-summary-list__row"
-          >
-            <dt class="nhsuk-summary-list__key">
-              <a :href="def.url" target="_blank">{{ def.title }}</a>
-            </dt>
-            <dd class="nhsuk-summary-list__value">
-              {{ def.definition }}
-            </dd>
-          </div>
-        </dl>
-        <hr />
-      </div>
       <h3 class="nhsuk-heading-l">Primary resources:</h3>
       <p class="nhsuk-u-font-size-24">
         Duration:
@@ -108,6 +90,24 @@
         />
         <hr />
       </div>
+    </div>
+    <div v-if="rapid.definitions">
+      <h3>What is:</h3>
+      <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
+        <div
+          v-for="def in rapid.definitions"
+          :key="def.title"
+          class="nhsuk-summary-list__row"
+        >
+          <dt class="nhsuk-summary-list__key">
+            <a :href="def.url" target="_blank">{{ def.title }}</a>
+          </dt>
+          <dd class="nhsuk-summary-list__value">
+            {{ def.definition }}
+          </dd>
+        </div>
+      </dl>
+      <hr />
     </div>
   </div>
 </template>
