@@ -7,7 +7,7 @@ profile: |-
   - I am a **Healthcare professional**
   - I am looking to enhance my knowledge and CPD in CYP mental health by **completing an elearning package that will give me a certificate**
 primaryResources:
-  - 581
+  - 123
   - 162
   - 559
   - 558
