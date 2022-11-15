@@ -1,5 +1,5 @@
 ---
-title: Snapshot of Accredited Short Courses in CYP Mental Health
+title: Snapshot of certified short courses in CYP mental health
 published: true
 createdAt: 2022-10-25T13:44:14.292Z
 updatedAt: 2022-10-25T13:44:14.302Z

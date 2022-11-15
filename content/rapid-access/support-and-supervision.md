@@ -1,5 +1,5 @@
 ---
-title: Support and Supervision
+title: Support and supervision
 published: true
 createdAt: 2022-10-25T13:46:49.600Z
 updatedAt: 2022-10-25T13:46:49.606Z

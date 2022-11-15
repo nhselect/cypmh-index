@@ -1,5 +1,5 @@
 ---
-title: Introduction to CYP mental health for Preceptorship
+title: CYP mental health - introduction for Preceptors
 published: true
 createdAt: 2022-10-25T13:37:26.282Z
 updatedAt: 2022-10-25T13:37:26.290Z
