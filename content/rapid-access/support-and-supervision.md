@@ -11,4 +11,4 @@ primaryResources:
   - 625
   - 657
 ---
-This list provides a sample of considerations for healthcare professionals, self-care, reflections on practice and value-based adjustments to validate and provide practical support to maintain wellbeing.
+A selection of resources for healthcare professionals to reflect on practice, value-based adjustments and provide practical support to maintain wellbeing.

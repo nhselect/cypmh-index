@@ -30,4 +30,4 @@ additionalResources:
       - 202
       - 628
 ---
-This list provides access to understanding of the range of eating disorders, quick hints and tips on management, access to the most up to date evidence, guides for assessment and treatment and brief, printable support guides for young people, parents and carers.
+A synopsis of the range of eating disorders, quick hints and tips on management, access to the most up to date evidence, guides for assessment and treatment and printable support guides.

@@ -23,4 +23,4 @@ additionalResources:
       - 606
       - 295
 ---
-This list takes the user on a natural patient journey from understanding why CYP self-harm and how to assess these behaviours against best practice guidance. The resources then allow the user to expand their knowledge in the areas of self-harm risk, care pathways, management of self-harm and care on the ward, communication with the CYP and alternatives and distractions to self-harm.
+A collection of resources that follow a natural patient journey from understanding why CYP self-harm and how to assess these behaviours against best practice guidance. Topics include self-harm risk, care pathways, management of self-harm and care on the ward, communication with the CYP and alternatives and distractions to self-harm.

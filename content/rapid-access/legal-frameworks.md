@@ -22,4 +22,4 @@ additionalResources:
       - 281
       - 282
 ---
-This list provides a basic overview of the key legislation, frameworks and law that will apply to some CYP experiencing mental health difficulties. It includes explanations of terminology and provides the user with the opportunity to hear CYP thoughts on these matters.
+A basic overview of the key legislation, frameworks and law. Also, offers explanations of terminology with CYP thoughts on these matters. 

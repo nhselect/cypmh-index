@@ -29,4 +29,4 @@ definitions:
       on children and young people’s mental health, wellbeing and development to
       any adult working with children, young people and families
 ---
-This list provides access to a selection of evidence-based materials via elearning for healthcare with self-assessment and quiz formats. The collated resources within the list will allow the user to test broad and fundamental knowledge and skills in the understanding of CYP mental health, learning disability or autism.
+A collection of evidence-based materials to test broad and fundamental knowledge and skills in the understanding of CYP mental health, learning disability or autism. Completion of each of these modules will gain a certificate.

@@ -1,10 +1,10 @@
 ---
-title: CYP mental health - introduction for Preceptors
+title: CYP mental health - an introduction
 published: true
 createdAt: 2022-10-25T13:37:26.282Z
 updatedAt: 2022-10-25T13:37:26.290Z
 profile: |-
-  - I am a **Healthcare professional** in my preceptorship or wanting to gain a broad overview of CYP mental health
+  - I am a **Healthcare professional** wanting to gain a broad overview of CYP mental health. I may be in my preceptorship programme
   - I would like to increase my knowledge and support of **CYP suffering with common mental health presentations in paediatric and ED departments**
 primaryResources:
   - 559
@@ -28,4 +28,4 @@ additionalResources:
       - 256
       - 639
 ---
-This list provides access to a brief and broad understanding of the range of mental health difficulties that CYP present with. It contains information about past experiences, how these disorders manifest and present, along with hints and tips on communication and management and involvement of other agencies and services to support the CYP, parents or carers
+A selection of resources for preceptorships and other healthcare professionals offering a brief and broad understanding of the range of mental health difficulties that CYP present with. This includes how these disorders manifest and present, along with hints and tips on communication and management.
