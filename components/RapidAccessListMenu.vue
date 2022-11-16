@@ -32,6 +32,7 @@ export default {
   async fetch() {
     const lists = await this.$content('rapid-access')
       .only(['title', 'slug', 'body', 'profile'])
+      .sortBy('title')
       .fetch()
 
     if (Array.isArray(lists)) {
