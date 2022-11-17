@@ -4,7 +4,7 @@ published: true
 createdAt: 2022-10-25T13:37:26.282Z
 updatedAt: 2022-10-25T13:37:26.290Z
 profile: |-
-  - I am a **Healthcare professional** wanting to gain a broad overview of CYP mental health. I may be in my preceptorship programme
+  - I am a **Healthcare professional** wanting to gain a broad overview of CYP mental health
   - I would like to increase my knowledge and support of **CYP suffering with common mental health presentations in paediatric and ED departments**
 primaryResources:
   - 559
