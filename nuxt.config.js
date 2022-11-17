@@ -28,7 +28,11 @@ export default {
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/pwa-update.js', mode: 'client' }],
+
+  plugins: [
+    { src: '~/plugins/to-readable-time.js' },
+    { src: '~/plugins/pwa-update.js', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -55,7 +59,9 @@ export default {
   // modules: ['nuxt-buefy', '@nuxt/content'],
   modules: ['@nuxt/content'],
 
-  content: {},
+  content: {
+    liveEdit: false,
+  },
 
   pwa: {
     icon: {
@@ -68,6 +74,27 @@ export default {
     },
     manifest: {
       name: 'LTLC CYP Mental Health Searchable Index',
+    },
+  },
+
+  hooks: {
+    // Doc: https://content.nuxtjs.org/advanced#contentfilebeforeinsert
+    'content:file:beforeInsert': async (document, database) => {
+      // search for markdown
+      if (document.extension === '.md' && document.profile) {
+        // Replace Markdown string in database
+        // with the JSON ATS version
+        document.profile = await database.markdown.toJSON(document.profile)
+
+        if (document.additionalResources) {
+          for (let i = 0; i < document.additionalResources.length; i++) {
+            document.additionalResources[i].description =
+              await database.markdown.toJSON(
+                document.additionalResources[i].description
+              )
+          }
+        }
+      }
     },
   },
 

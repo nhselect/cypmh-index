@@ -6,7 +6,7 @@
       class="nhsuk-grid-column-full nhsuk-card-group__item"
     >
       <div
-        class="nhsuk-card"
+        class="nhsuk-card nhsuk-u-margin-bottom-2"
         :class="{
           starred: resource.starred,
           selected: selected.includes(resource) && !isList,
@@ -15,7 +15,9 @@
         <div v-if="resource.starred" class="resource__starred">
           <FontAwesome icon="star" size="xl" class="resource__starred" />
         </div>
-        <div class="nhsuk-card__content ltlc-card__content">
+        <div
+          class="nhsuk-card__content ltlc-card__content nhsuk-u-padding-4 nhsuk-u-padding-bottom-0"
+        >
           <div class="nhsuk-card__content-frame">
             <h3 class="nhsuk-card__heading nhsuk-heading-s">
               <a :href="resource.url" target="_blank">
@@ -24,7 +26,7 @@
             </h3>
             <p
               v-if="resource.attribution"
-              class="nhsuk-body-s ltlc-attribution"
+              class="nhsuk-body-s ltlc-attribution nhsuk-u-margin-bottom-2"
             >
               <FontAwesome icon="user-edit" size="1x" />
               <strong>
@@ -32,12 +34,15 @@
               </strong>
             </p>
             <p
-              class="nhsuk-card__description nhsuk-body-s"
+              class="nhsuk-card__description nhsuk-body-s nhsuk-u-reading-width nhsuk-u-margin-bottom-2"
               :title="resource.description"
             >
               {{ resource.description | trimDescription }}
             </p>
-            <ul class="ltlc-keywords nhsuk-body-s">
+            <ul
+              v-if="showTags"
+              class="ltlc-keywords nhsuk-body-s nhsuk-u-margin-0"
+            >
               <li v-for="keyword in resource.keywords" :key="keyword" class="">
                 <a href="#" @click="addKeywordToFilter(keyword)">
                   {{ keyword }}
@@ -134,23 +139,26 @@
           </dl>
         </div>
         <div v-if="!isList" class="ltlc__select-item">
-          <div class="nhsuk-form-group">
-            <div class="nhsuk-checkboxes__item">
+          <div>
+            <label
+              class="nhsuk-button"
+              :class="
+                selectedItems.includes(resource) ? 'nhsuk-button--selected' : ''
+              "
+              :for="resource.id.toString()"
+            >
               <input
+                :id="resource.id.toString()"
                 v-model="selectedItems"
-                class="nhsuk-checkboxes__input"
                 type="checkbox"
                 :label="resource.id"
                 :value="resource"
-                :name="resource.id"
+                :name="resource.id.toString()"
+                hidden
               />
-              <label
-                class="nhsuk-label nhsuk-checkboxes__label"
-                :for="resource.id"
-              >
-                Add item to list
-              </label>
-            </div>
+              <span v-if="selectedItems.includes(resource)">Remove item</span>
+              <span v-else>Add item to list</span>
+            </label>
           </div>
         </div>
       </div>
@@ -206,6 +214,7 @@ export default class Resources extends Vue {
   @Prop({ required: true }) readonly links!: IResource[]
   @Prop({ required: true }) readonly selected!: IResource[]
   @Prop({ required: true }) readonly isList!: boolean
+  @Prop({ required: false, default: true }) readonly showTags!: boolean
 
   selectedItems: IResource[] = []
 
@@ -272,8 +281,8 @@ h3.nhsuk-heading-s {
 
 .resource__starred {
   position: absolute;
-  left: 3px;
-  top: 6px;
+  left: -5px;
+  top: -6px;
   color: $color_nhsuk-orange;
 }
 
@@ -344,33 +353,39 @@ h3.nhsuk-heading-s {
 }
 
 .ltlc__select-item {
-  @include nhsuk-responsive-padding(5);
+  @include nhsuk-responsive-padding(4);
 
   padding-top: 0 !important;
   float: right;
 
-  .nhsuk-form-group {
+  .nhsuk-button {
+    @include nhsuk-responsive-padding(2);
+
     margin-bottom: 0;
+    font-size: 0.8em;
+    background-color: $nhsuk-secondary-button-color;
+    box-shadow: 0 $button-shadow-size 0 $nhsuk-secondary-button-shadow-color;
 
-    .nhsuk-checkboxes__item {
-      padding: 0 40px 0 0;
+    &:hover {
+      background-color: darken($nhsuk-secondary-button-color, 10%);
+    }
 
-      .nhsuk-checkboxes__input {
-        left: auto;
-        right: 0;
-      }
+    &:focus {
+      background: $nhsuk-focus-color;
+      box-shadow: 0 $button-shadow-size 0 $nhsuk-focus-text-color;
+      color: $nhsuk-focus-text-color;
+      outline: $nhsuk-focus-width solid transparent;
+    }
 
-      .nhsuk-checkboxes__label {
-        &::before {
-          left: auto;
-          right: 0;
-        }
+    &:active {
+      background: $nhsuk-secondary-button-active-color;
+      box-shadow: none;
+      color: $nhsuk-button-text-color;
+      top: $button-shadow-size;
+    }
 
-        &::after {
-          left: auto;
-          right: 10px;
-        }
-      }
+    &.nhsuk-button--disabled {
+      background-color: $nhsuk-secondary-button-color;
     }
   }
 }
