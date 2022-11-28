@@ -11,6 +11,16 @@
       </span>
     </summary>
     <div class="nhsuk-details__text selectedList">
+      <div v-if="selected.length > 0 && !viewList" class="nhsuk-form-group">
+        <label class="nhsuk-label" for="share-title"> Name your list: </label>
+        <input
+          id="share-title"
+          v-model="shareTitleField"
+          class="nhsuk-input"
+          name="share-title"
+          type="text"
+        />
+      </div>
       <ul v-if="selected.length > 0" class="nhsuk-list">
         <li
           v-for="(item, index) in selected"
@@ -25,7 +35,7 @@
               }}{{ item.duration ? ' - ' + item.duration + ' min' : '' }}
             </span>
           </div>
-          <span class="selectedList-item__buttons">
+          <span v-if="!viewList" class="selectedList-item__buttons">
             <button
               v-if="index > 0"
               class="nhsuk-button nhsuk-button--secondary"
@@ -98,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 import { library, config } from '@fortawesome/fontawesome-svg-core'
 import {
   faArrowUp,
@@ -122,6 +132,9 @@ export default class SelectedList extends Vue {
   @Prop({ required: true }) readonly selected!: IResource[]
   @Prop({ required: true }) readonly viewList!: boolean
   @Prop({ required: true }) readonly editingList!: boolean
+  @Prop({ required: true }) readonly shareTitle!: string
+
+  shareTitleField = ''
 
   removeItem(item: IResource) {
     this.$emit('update:editing-list', true)
@@ -149,6 +162,16 @@ export default class SelectedList extends Vue {
       const newArray = arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0])
       this.$emit('update:selected', newArray)
     }
+  }
+
+  @Watch('shareTitleField')
+  onShareTitleChanged() {
+    this.$emit('update:share-title', this.shareTitleField)
+  }
+
+  @Watch('shareTitle')
+  onShareTitleChanged2() {
+    this.shareTitleField = this.shareTitle
   }
 
   clearList() {
