@@ -3,17 +3,9 @@
     <div
       v-if="resources.length > 0"
       class="nhsuk-grid-column-one-third ltlc-picker"
-      :class="filterVisible ? 'filter-visible' : ''"
     >
-      <SelectedList
-        :selected.sync="selected"
-        :view-list.sync="viewingList"
-        :share-modal.sync="shareModal"
-        :share-title.sync="shareTitle"
-        :is-sharing-filter.sync="isSharingFilter"
-        :editing-list.sync="editingList"
-      />
       <Picker
+        id="picker"
         :resources="resources"
         :filter.sync="indexFilter"
         :viewing-list.sync="viewingList"
@@ -24,11 +16,16 @@
         @clear="links = resources"
         @clearFilters="clearFilters"
       />
-      <button id="filter-toggle" class="nhsuk-button" @click="toggleFilter">
-        {{ filterVisible ? 'Show' : 'Hide' }} filters
-      </button>
     </div>
     <div class="nhsuk-grid-column-two-thirds">
+      <SelectedList
+        :selected.sync="selected"
+        :view-list.sync="viewingList"
+        :share-modal.sync="shareModal"
+        :share-title.sync="shareTitle"
+        :is-sharing-filter.sync="isSharingFilter"
+        :editing-list.sync="editingList"
+      />
       <div id="resources" class="ltlc-resources">
         <div class="">
           <h2 v-if="viewingList" class="nhsuk-heading-xl">
@@ -99,12 +96,6 @@ export default class Matrix extends Vue {
     easyRead: false,
     livedExperience: false,
     certifiable: false,
-  }
-
-  filterVisible: boolean = false
-
-  toggleFilter() {
-    this.filterVisible = !this.filterVisible
   }
 
   // default cleared filter values
@@ -264,30 +255,9 @@ export default class Matrix extends Vue {
 }
 
 .ltlc-picker {
-  max-height: 100vh;
-  overflow-y: auto;
   border-right: 1px solid $color_nhsuk-grey-4;
-  top: 0;
   z-index: 999;
   background-color: $color_nhsuk-grey-5;
   padding-top: 20px;
-
-  @include mq($from: desktop) {
-    padding-top: 20px;
-    // position: sticky;
-  }
-
-  @include mq($from: tablet) {
-    > button {
-      display: none;
-    }
-  }
-
-  &.filter-visible {
-    > details,
-    > div {
-      display: none;
-    }
-  }
 }
 </style>

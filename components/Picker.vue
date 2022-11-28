@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!viewingList" id="picker" class="nhsuk-fieldset">
+    <div v-if="!viewingList" class="nhsuk-fieldset">
       <div class="nhsuk-form-group">
         <label class="nhsuk-label" for="search">
           What are you looking for?
@@ -68,58 +68,56 @@
           </div>
         </fieldset>
       </div>
-      <div class="nhsuk-form-group nhsuk-checkboxes--small">
+      <div class="nhsuk-form-group">
         <legend class="nhsuk-fieldset__legend">
           <p class="nhsuk-fieldset__heading">Features</p>
         </legend>
-        <div class="nhsuk-checkboxes__item">
-          <input
-            v-model="indexFilter.easyRead"
-            class="nhsuk-checkboxes__input"
-            type="checkbox"
-            label="easyRead"
-            value="easyRead"
-            name="easyRead"
-          />
-          <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
-            Easy read content
-          </label>
-        </div>
-      </div>
-      <div class="nhsuk-form-group nhsuk-checkboxes--small">
-        <div class="nhsuk-checkboxes__item">
-          <input
-            v-model="indexFilter.livedExperience"
-            class="nhsuk-checkboxes__input"
-            type="checkbox"
-            label="livedExperience"
-            value="livedExperience"
-            name="livedExperience"
-          />
-          <label
-            class="nhsuk-label nhsuk-checkboxes__label"
-            for="livedExperience"
-          >
-            Content with lived experience
-          </label>
-        </div>
-      </div>
-      <div class="nhsuk-form-group nhsuk-checkboxes--small">
-        <div class="nhsuk-checkboxes__item">
-          <input
-            v-model="indexFilter.certifiable"
-            class="nhsuk-checkboxes__input"
-            type="checkbox"
-            label="certifiable"
-            value="certifiable"
-            name="certifiable"
-          />
-          <label
-            class="nhsuk-label nhsuk-checkboxes__label"
-            for="livedExperience"
-          >
-            Content with certification
-          </label>
+        <div class="nhsuk-checkboxes--small">
+          <div class="nhsuk-checkboxes__item">
+            <input
+              v-model="indexFilter.easyRead"
+              class="nhsuk-checkboxes__input"
+              type="checkbox"
+              label="easyRead"
+              value="easyRead"
+              name="easyRead"
+            />
+            <label class="nhsuk-label nhsuk-checkboxes__label" for="easyRead">
+              Easy read content
+            </label>
+          </div>
+          <div class="nhsuk-checkboxes__item">
+            <input
+              v-model="indexFilter.livedExperience"
+              class="nhsuk-checkboxes__input"
+              type="checkbox"
+              label="livedExperience"
+              value="livedExperience"
+              name="livedExperience"
+            />
+            <label
+              class="nhsuk-label nhsuk-checkboxes__label"
+              for="livedExperience"
+            >
+              Content with lived experience
+            </label>
+          </div>
+          <div class="nhsuk-checkboxes__item">
+            <input
+              v-model="indexFilter.certifiable"
+              class="nhsuk-checkboxes__input"
+              type="checkbox"
+              label="certifiable"
+              value="certifiable"
+              name="certifiable"
+            />
+            <label
+              class="nhsuk-label nhsuk-checkboxes__label"
+              for="livedExperience"
+            >
+              Content with certification
+            </label>
+          </div>
         </div>
       </div>
       <div class="nhsuk-form-group">
