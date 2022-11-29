@@ -25,6 +25,7 @@
         :share-title.sync="shareTitle"
         :is-sharing-filter.sync="isSharingFilter"
         :editing-list.sync="editingList"
+        :resources="resources"
       />
       <div id="resources" class="ltlc-resources">
         <div class="">
@@ -176,7 +177,8 @@ export default class Matrix extends Vue {
 
     this.resources = this.resources.map((item) => {
       const search = [item.title, item.keywords, item.description].join(' ')
-      return { ...item, search }
+      const points = 0
+      return { ...item, search, points }
     })
 
     this.links = this.resources
@@ -203,7 +205,7 @@ export default class Matrix extends Vue {
     } else {
       string = this.setListUrl()
     }
-    const url = window.location.href.split('#')[0]
+    const url = window.location.href.split('?')[0]
     return url + string
   }
 
@@ -232,7 +234,7 @@ export default class Matrix extends Vue {
       const title = this.shareTitle
         ? '&t=' + this.encodeString(this.shareTitle.trim())
         : ''
-      return '?list=' + encodedListString + title
+      return '?list=' + encodedListString.toString() + title.toString()
     }
     return ''
   }

@@ -270,7 +270,15 @@ export default class Picker extends Vue {
           Date.parse(b.upload_date.toString()) -
             Date.parse(a.upload_date.toString())
       )
-    let resource = ranked
+
+    let resource = this.resources
+      .filter((r) => ranked.map((m) => m.id).includes(r.id))
+      .sort((a, b) => {
+        return (
+          ranked.findIndex((ranked) => a.id === ranked.id) -
+          ranked.findIndex((ranked) => b.id === ranked.id)
+        )
+      })
 
     if (this.indexFilter.duration > 0) {
       resource = resource.filter((resource) => {

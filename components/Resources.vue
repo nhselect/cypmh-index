@@ -9,7 +9,7 @@
         class="nhsuk-card nhsuk-u-margin-bottom-2"
         :class="{
           starred: resource.starred,
-          selected: selected.includes(resource) && !isList,
+          selected: isSelected(resource.id) && !isList,
         }"
       >
         <div v-if="resource.starred" class="resource__starred">
@@ -142,9 +142,7 @@
           <div>
             <label
               class="nhsuk-button"
-              :class="
-                selectedItems.includes(resource) ? 'nhsuk-button--selected' : ''
-              "
+              :class="isSelected(resource.id) ? 'nhsuk-button--selected' : ''"
               :for="resource.id.toString()"
             >
               <input
@@ -156,7 +154,7 @@
                 :name="resource.id.toString()"
                 hidden
               />
-              <span v-if="selectedItems.includes(resource)">Remove item</span>
+              <span v-if="isSelected(resource.id)">Remove item</span>
               <span v-else>Add item to list</span>
             </label>
           </div>
@@ -217,6 +215,10 @@ export default class Resources extends Vue {
   @Prop({ required: false, default: true }) readonly showTags!: boolean
 
   selectedItems: IResource[] = []
+
+  isSelected(id: number) {
+    return this.selected.map((s) => s.id).includes(id)
+  }
 
   addKeywordToFilter(keyword: string) {
     this.$root.$emit('addKeywordToFilter', keyword)
