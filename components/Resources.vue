@@ -137,6 +137,7 @@
               </dd>
             </div>
           </dl>
+          <QrCode v-if="createQr" :share-url="resource.url" />
         </div>
         <div v-if="!isList" class="ltlc__select-item">
           <div>
@@ -212,6 +213,7 @@ export default class Resources extends Vue {
   @Prop({ required: true }) readonly links!: IResource[]
   @Prop({ required: true }) readonly selected!: IResource[]
   @Prop({ required: true }) readonly isList!: boolean
+  @Prop({ required: false, default: false }) readonly createQr!: boolean
   @Prop({ required: false, default: true }) readonly showTags!: boolean
 
   selectedItems: IResource[] = []

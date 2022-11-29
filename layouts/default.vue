@@ -5,7 +5,7 @@
     <div class="nhsuk-width-container-fluid">
       <main id="maincontent" class="nhsuk-main-wrapper" role="main">
         <Nuxt />
-        <div class="links">
+        <div class="email-contact">
           <h2>Can't find what you are looking for?</h2>
           <p>
             Please email
@@ -16,7 +16,7 @@
             suitable resources.
           </p>
         </div>
-        <div>
+        <div class="install-instructions">
           <h2>Install on your phone</h2>
           <p>
             You can install this as an app on your phone by accessing your
@@ -25,7 +25,7 @@
             (please note: steps vary between devices and browsers)
           </p>
         </div>
-        <div>
+        <div class="programme-list">
           <Programmes />
         </div>
       </main>

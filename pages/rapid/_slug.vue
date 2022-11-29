@@ -58,6 +58,7 @@
     <Resources
       :links="items"
       :is-list="true"
+      :create-qr="true"
       :selected="[]"
       :show-tags="false"
       class="nhsuk-u-reading-width"
@@ -84,6 +85,7 @@
         <Resources
           :links="additionalItems[index]"
           :is-list="true"
+          :create-qr="true"
           :selected="[]"
           :show-tags="false"
           class="nhsuk-u-reading-width"
@@ -183,4 +185,131 @@ export default {
 @import 'node_modules/nhsuk-frontend/packages/components/inset-text/inset-text';
 @import 'node_modules/nhsuk-frontend/packages/components/back-link/back-link';
 @import 'node_modules/nhsuk-frontend/packages/components/tag/tag';
+
+@media print {
+  html,
+  body {
+    background: none;
+  }
+
+  #maincontent.nhsuk-main-wrapper {
+    padding-top: 24px;
+  }
+
+  .nhsuk-back-link {
+    display: none;
+  }
+
+  h1.nhsuk-heading-m {
+    font-size: 1rem;
+  }
+
+  h2.nhsuk-heading-xl {
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .nhsuk-inset-text {
+    margin-top: 12px;
+    margin-bottom: 24px;
+    padding: 12px;
+  }
+
+  p,
+  li {
+    font-size: 12pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+    margin-bottom: 12px;
+  }
+
+  h3.nhsuk-heading-l {
+    font-size: 16pt;
+  }
+
+  .nhsuk-u-font-size-24 {
+    font-size: 14pt !important;
+  }
+
+  .nhsuk-card-group {
+    display: block;
+    float: none;
+  }
+
+  .nhsuk-card-group__item {
+    break-after: always;
+    page-break-after: always;
+    -webkit-column-break-after: always;
+    page-break-inside: avoid;
+    display: block;
+    float: none;
+  }
+
+  .nhsuk-card {
+    border: 0;
+    border-bottom: 1px solid $color_nhsuk-grey-5;
+    margin-bottom: 16px;
+    background: none;
+
+    &.starred {
+      border: 0;
+      border-bottom: 1px solid $color_nhsuk-grey-5;
+    }
+  }
+
+  .nhsuk-card__content {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 8px !important;
+
+    h3.nhsuk-card__heading.nhsuk-heading-s {
+      font-size: 14pt;
+
+      a {
+        text-decoration: none;
+
+        &::after {
+          font-size: 12pt;
+        }
+      }
+    }
+
+    .nhsuk-card__content-frame {
+      p {
+        font-size: 11pt;
+      }
+    }
+
+    p.ltlc-attribution {
+      font-size: 10pt !important;
+    }
+
+    dl.ltlc-resource-details {
+      margin-right: 0;
+
+      div,
+      dt,
+      dd {
+        font-size: 10pt;
+      }
+    }
+  }
+
+  .resource__starred {
+    display: none;
+  }
+
+  hr {
+    display: none;
+  }
+
+  .email-contact,
+  .install-instructions,
+  .programme-list {
+    display: none;
+  }
+}
 </style>
