@@ -13,6 +13,4 @@ primaryResources:
   - 257
   - 698
 ---
-Insights into communication and language that can be personalised to the individual needs of autistic children and young people or those with a learning disability and that provides reasonable adjustments to their care.
-
-The list provides and introduction for those without or with limited experience of caring for children and young people who are autistic or have a learning disability. We encourage the user to also explore their own area resources in this area and hope the contents of this list can provide helpful additional layers of local understanding.
+Insights into communication and language that can be personalised to the individual needs of autistic children and young people or those with a learning disability that provide reasonable adjustments to their care.

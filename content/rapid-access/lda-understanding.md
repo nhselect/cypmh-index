@@ -18,4 +18,4 @@ additionalResources:
     resources:
       - 695
 ---
-Insight into differentiating between learning difficulties and disabilities as well as a core understanding of autism. It should support ED and paediatric staff to understand pertinent issues that may be present within their departments.
+Insight into differentiating between learning difficulties and disabilities as well as a core understanding of autism, to support ED and paediatric staff to understand pertinent issues that may be present within their departments.
