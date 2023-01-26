@@ -1,6 +1,7 @@
 ---
 title: Children and young people mental health - an introduction
 published: true
+order: 1
 createdAt: 2022-10-25T13:37:26.282Z
 updatedAt: 2022-10-25T13:37:26.290Z
 profile: |-
@@ -21,9 +22,7 @@ primaryResources:
   - 77
 additionalResources:
   - title: Further resources
-    description: These resources provide additional information for the learner
-      looking to extend their exploration of the subject matter beyond the
-      initial rapid access list.
+    description: These resources provide additional information for the learner looking to extend their exploration of the subject matter beyond the initial rapid access list.
     resources:
       - 256
       - 639
