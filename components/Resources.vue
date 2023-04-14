@@ -8,11 +8,11 @@
       <div
         class="nhsuk-card nhsuk-u-margin-bottom-2"
         :class="{
-          starred: resource.starred,
+          starred: resource.starred && !isList,
           selected: isSelected(resource.id) && !isList,
         }"
       >
-        <div v-if="resource.starred" class="resource__starred">
+        <div v-if="resource.starred && !isList" class="resource__starred">
           <FontAwesome icon="star" size="xl" class="resource__starred" />
         </div>
         <div
@@ -246,7 +246,7 @@ export default class Resources extends Vue {
 
 Vue.filter('trimDescription', (desc: string) => {
   if (desc != null && desc.length > 0) {
-    return desc.substring(0, 350).trim() + (desc.length > 350 ? '...' : '')
+    return desc.substring(0, 600).trim() + (desc.length > 600 ? '...' : '')
   }
   return ''
 })

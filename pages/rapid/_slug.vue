@@ -46,6 +46,14 @@
         <h3>About this list:</h3>
         <nuxt-content :document="rapid" />
       </div>
+      <div class="nhsuk-hint">
+        <p>
+          We also encourage you to explore the resources provided by your local
+          employer to support care of these children and young people. We hope
+          the contents of these lists will provide helpful complementary
+          resources where needed.
+        </p>
+      </div>
       <hr />
       <h3 class="nhsuk-heading-l">Primary resources:</h3>
       <p class="nhsuk-u-font-size-24">
@@ -185,6 +193,7 @@ export default {
 @import 'node_modules/nhsuk-frontend/packages/components/inset-text/inset-text';
 @import 'node_modules/nhsuk-frontend/packages/components/back-link/back-link';
 @import 'node_modules/nhsuk-frontend/packages/components/tag/tag';
+@import 'node_modules/nhsuk-frontend/packages/components/hint/hint';
 
 @media print {
   html,
